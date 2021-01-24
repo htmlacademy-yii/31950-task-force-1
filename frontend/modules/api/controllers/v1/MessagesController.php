@@ -31,9 +31,9 @@ class MessagesController extends ActiveController
      *
      * @return array список сообщений
      */
-    public function actionIndex(int $id): array
+    public function actionIndex(int $id, int $user_id): array
     {
-        return $this->modelClass::findAll(['task_id' => $id]);
+        return $this->modelClass::findAll(['task_id' => $id, 'worker_id' => $user_id]);
     }
 
     /**
@@ -46,7 +46,6 @@ class MessagesController extends ActiveController
     public function actionCreate(): ?array
     {
         \Yii::$app->response->statusCode = 201;
-        $userId = \Yii::$app->user->identity->id;
 
         $message = json_decode(\Yii::$app->getRequest()->getRawBody(), true);
         $task = Task::findOne($message['task_id']);
@@ -54,9 +53,9 @@ class MessagesController extends ActiveController
             return null;
         }
         return ActionTaskHelper::message($task, new $this->modelClass([
-            'message' => $message["message"],
             'published_at' => time(),
-            'owner_id' => $userId,
+            'message' => $message["message"],
+            'owner_id' => $message["owner_id"],
             'task_id' => $task->id,
             'worker_id' => $message["worker_id"],
         ]));

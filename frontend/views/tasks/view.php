@@ -7,6 +7,7 @@ use htmlacademy\helpers\SiteHelper;
 use frontend\widgets\Modal;
 use frontend\widgets\Rate;
 use frontend\assets\TaskAsset;
+
 TaskAsset::register($this);
 /** @var $task */
 /** @var $check */
@@ -152,7 +153,8 @@ $user = \Yii::$app->user->identity;
     </div>
     <div class="connect-desk__chat">
         <div id="chat-container">
-            <chat class="connect-desk__chat" task="<?=$task->id?>" user="<?=$user->id?>" worker="<?= $task->user->id?>"></chat>
+            <chat class="connect-desk__chat" task="<?= $task->id ?>" user="<?= $user->id ?>" owner="<?= $task->owner_id ?>"
+                  worker="<?= $task->user ? $task->user->user_id : null ?>"></chat>
         </div>
     </div>
 </section>

@@ -35,21 +35,7 @@ class Message extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['published_at', 'message', 'worker_id', 'owner_id', 'task_id'], 'required'],
-            [['published_at'], 'safe'],
-            [['message'], 'string'],
-            [['worker_id', 'owner_id'], 'integer'],
-            [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
-            [['worker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::className(), 'targetAttribute' => ['worker_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
-        ];
-    }
+
 
     /**
      * {@inheritdoc}

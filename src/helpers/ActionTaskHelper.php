@@ -28,8 +28,8 @@ class ActionTaskHelper
         $newMessage = null;
         $transaction = Yii::$app->db->beginTransaction();
         $newMessage = [
-            'message' => $message->message,
             'published_at' => $message->published_at,
+            'message' => $message->message,
             'worker_id' => $message->worker_id,
             'owner_id' => $message->owner_id,
             'task_id' => $message->task_id,
