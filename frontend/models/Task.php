@@ -115,4 +115,44 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(UserTask::className(), ['task_id' => 'id']);
     }
 
+
+    /**
+     * Проверка права пользователя на создание сообщения к данному заданию
+     *
+     * @param int $userId идентификатор пользователя
+     *
+     * @return bool резльутат проверки, есть право на создание, или нет
+     */
+    public function getAccessCheckMessageCreate(int $userId): bool
+    {
+        return $this->getIsSelectedExecutor($userId)
+            || $this->getIsAuthor($userId);
+    }
+
+    /**
+     * Проверка, является ли пользователь с указанным идентификатором
+     * исполнителем этого задания
+     *
+     * @param int $userId идентификатор пользователя
+     *
+     * @return bool результат проверки, является ли пользователь исполнителем задания
+     */
+    public function getIsSelectedExecutor(int $userId): bool
+    {
+        return ($this->user->id ?? null) === $userId;
+    }
+
+    /**
+     * Проверка, является ли пользователь с указанным идентификатором
+     * автором этого задания
+     *
+     * @param int $userId идентификатор пользователя
+     *
+     * @return bool результат проверки, является ли пользователь автором задания
+     */
+    public function getIsAuthor(int $userId): bool
+    {
+        return $this->owner_id === $userId;
+    }
+
 }

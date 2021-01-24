@@ -5,8 +5,8 @@ Vue.component('chat', {
   template: `<div><h3>Переписка</h3>
              <div class="chat__overflow">
                <div class="chat__message" v-for="item in messages" :class="{'chat__message--out': item.owner_id==user}">
-                <p class="chat__message-time">{{ convertToDate(item.date_add) }}</p>
-                <p class="chat__message-text">{{ item.description }}</p>
+                <p class="chat__message-time">{{ convertToDate(item.published_at) }}</p>
+                <p class="chat__message-text">{{ item.message }}</p>
                </div>
               </div>
               <p class="chat__your-message">Ваше сообщение</p>
@@ -27,7 +27,7 @@ Vue.component('chat', {
       console.error("Не передан идентификатор задания (атрибут task) в теге 'chat'")
     }
     else {
-      this.api_url = '/api/messages';
+      this.api_url = '/api/v1/messages';
       this.getMessages();
     }
   },
