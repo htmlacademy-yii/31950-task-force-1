@@ -1,6 +1,6 @@
 <?php
 
-namespace src\ActionTaskHelper;
+namespace htmlacademy\helpers;
 
 use frontend\models\Message;
 use frontend\models\Task;
@@ -15,11 +15,10 @@ use Yii;
  */
 class ActionTaskHelper
 {
-
     /**
      * Добавление нового сообщения к заданию
      *
-     * @param Task    $task    объект задания
+     * @param Task $task объект задания
      * @param Message $message объект нового сообщения к заданию
      *
      * @return array|null массив с данными нового задания
@@ -28,20 +27,19 @@ class ActionTaskHelper
     {
         $newMessage = null;
         $transaction = Yii::$app->db->beginTransaction();
+        $newMessage = [
+            'message' => $message->message,
+            'published_at' => $message->published_at,
+            'worker_id' => 2,
+            'owner_id' => $message->owner_id,
+            'task_id' => $message->task_id,
+        ];
         try {
             $message->save();
-
-            $newMessage = [
-                'message' => $message->message,
-                'published_at' => $message->published_at,
-                'owner_id' => $message->owner_id,
-                'task_id' => $message->task_id,
-            ];
             $transaction->commit();
         } catch (\Exception $err) {
             $transaction->rollBack();
         }
-
-        return $newMessage;
+        return [$newMessage];
     }
 }

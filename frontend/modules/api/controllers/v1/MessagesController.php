@@ -5,7 +5,7 @@ namespace frontend\modules\api\controllers\v1;
 use frontend\models\Message;
 use yii\rest\ActiveController;
 use frontend\models\Task;
-use src\ActionTaskHelper\ActionTaskHelper;
+use htmlacademy\helpers\ActionTaskHelper;
 
 class MessagesController extends ActiveController
 {
@@ -45,21 +45,18 @@ class MessagesController extends ActiveController
      */
     public function actionCreate(): ?array
     {
+        \Yii::$app->response->statusCode = 201;
         $userId = \Yii::$app->user->identity->id;
+
         $message = json_decode(\Yii::$app->getRequest()->getRawBody(), true);
         $task = Task::findOne($message['task_id']);
-
-        if (!$message || !$task
-            || !$task->getAccessCheckMessageCreate($userId)
-        ) {
+        if (!$message || !$task) {
             return null;
         }
 
-        \Yii::$app->response->statusCode = 201;
-
         return ActionTaskHelper::message($task, new $this->modelClass([
-            'message' => $message['message'],
-            'published_at' => date('Y-m-d h:i:s'),
+            'message' => $message["message"],
+            'published_at' => time(),
             'owner_id' => $userId,
             'task_id' => $task->id,
         ]));

@@ -16,7 +16,6 @@ use frontend\models\Task;
 use frontend\models\TaskForm;
 use frontend\models\Response;
 use htmlacademy\controllers\CheckController;
-use GuzzleHttp\Client;
 
 class TasksController extends SecuredController
 {

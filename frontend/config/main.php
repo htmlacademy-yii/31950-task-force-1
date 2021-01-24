@@ -2,7 +2,6 @@
 
 use frontend\modules\api\Module;
 use yii\rest\UrlRule;
-use frontend\modules\api\controllers\v1\MessagesController;
 
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',

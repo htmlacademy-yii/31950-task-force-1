@@ -45,7 +45,7 @@ Vue.component('chat', {
         return result.json();
       })
       .then(msg => {
-        this.messages.push(msg);
+        this.messages.push(msg[0]);
         this.message = null;
       })
       .catch(err => {
