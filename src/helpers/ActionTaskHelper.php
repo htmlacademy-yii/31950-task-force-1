@@ -30,7 +30,7 @@ class ActionTaskHelper
         $newMessage = [
             'message' => $message->message,
             'published_at' => $message->published_at,
-            'worker_id' => 2,
+            'worker_id' => $message->worker_id,
             'owner_id' => $message->owner_id,
             'task_id' => $message->task_id,
         ];

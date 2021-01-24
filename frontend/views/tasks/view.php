@@ -152,7 +152,7 @@ $user = \Yii::$app->user->identity;
     </div>
     <div class="connect-desk__chat">
         <div id="chat-container">
-            <chat class="connect-desk__chat" task="<?=$task->id?>" user="<?=$user->id?>"></chat>
+            <chat class="connect-desk__chat" task="<?=$task->id?>" user="<?=$user->id?>" worker="<?= $task->user->id?>"></chat>
         </div>
     </div>
 </section>

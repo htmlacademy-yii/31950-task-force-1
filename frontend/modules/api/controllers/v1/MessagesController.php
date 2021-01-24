@@ -53,12 +53,12 @@ class MessagesController extends ActiveController
         if (!$message || !$task) {
             return null;
         }
-
         return ActionTaskHelper::message($task, new $this->modelClass([
             'message' => $message["message"],
             'published_at' => time(),
             'owner_id' => $userId,
             'task_id' => $task->id,
+            'worker_id' => $message["worker_id"],
         ]));
     }
 }
