@@ -1,4 +1,8 @@
 <?php
+
+use frontend\modules\api\Module;
+use yii\rest\UrlRule;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -11,10 +15,18 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'api' => [
+            'class' => Module::class,
+        ]
+    ],
     'components' => [
         'request' => [
             'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -44,10 +56,18 @@ return [
                 '/' => 'site/index',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '/task' => 'site/task',
-                'tasks/<id:\d+>'   => 'tasks/view',
-                'users/<id:\d+>'   => 'users/view',
-                'users/user/<id:\d+>'   => 'users/user',
-                'register'   => 'site/signup',
+                'tasks/<id:\d+>' => 'tasks/view',
+                'users/<id:\d+>' => 'users/view',
+                'users/user/<id:\d+>' => 'users/user',
+                'register' => 'site/signup',
+                [
+                    'class' => UrlRule::class,
+                    'controller' => 'api/v1/messages',
+                    'extraPatterns' => [
+                        'GET {id}' => 'index',
+                        'POST' => 'create',
+                    ],
+                ],
             ],
         ],
     ],

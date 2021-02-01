@@ -8,13 +8,15 @@ use Yii;
  * This is the model class for table "message".
  *
  * @property int $id
- * @property string $date_add
- * @property string $description
+ * @property string $published_at
+ * @property string $message
  * @property int $worker_id
  * @property int $owner_id
+ * @property int $task_id
  *
  * @property User $owner
  * @property Profile $worker
+ * @property Task $task
  */
 class Message extends \yii\db\ActiveRecord
 {
@@ -26,20 +28,14 @@ class Message extends \yii\db\ActiveRecord
         return 'message';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function scenarios()
     {
         return [
-            [['date_add', 'description', 'worker_id', 'owner_id'], 'required'],
-            [['date_add'], 'safe'],
-            [['description'], 'string'],
-            [['worker_id', 'owner_id'], 'integer'],
-            [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
-            [['worker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::className(), 'targetAttribute' => ['worker_id' => 'id']],
+            'default' => ['published_at', 'message', 'worker_id', 'owner_id', 'task_id']
         ];
     }
+
+
 
     /**
      * {@inheritdoc}
@@ -48,10 +44,11 @@ class Message extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date_add' => 'Date Add',
-            'description' => 'Description',
+            'published_at' => 'Published At',
+            'message' => 'message',
             'worker_id' => 'Worker ID',
             'owner_id' => 'Owner ID',
+            'task_id' => 'Task ID',
         ];
     }
 
