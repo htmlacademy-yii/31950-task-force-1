@@ -26,7 +26,6 @@ class ActionTaskHelper
     public static function message(Task $task, Message $message): ?array
     {
         $newMessage = null;
-        $transaction = Yii::$app->db->beginTransaction();
         $newMessage = [
             'published_at' => $message->published_at,
             'message' => $message->message,
@@ -34,12 +33,7 @@ class ActionTaskHelper
             'owner_id' => $message->owner_id,
             'task_id' => $message->task_id,
         ];
-        try {
-            $message->save();
-            $transaction->commit();
-        } catch (\Exception $err) {
-            $transaction->rollBack();
-        }
+        $message->save();
         return [$newMessage];
     }
 }

@@ -33,7 +33,15 @@ class MessagesController extends ActiveController
      */
     public function actionIndex(int $id, int $user_id): array
     {
-        return $this->modelClass::findAll(['task_id' => $id, 'worker_id' => $user_id]);
+        return $this->modelClass::find()->andWhere([
+            'task_id' => $id
+        ])
+            ->andWhere([
+                'or',
+                'worker_id' => $user_id,
+                'owner_id' => $user_id
+            ])
+            ->all();
     }
 
     /**
