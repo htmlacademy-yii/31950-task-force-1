@@ -115,7 +115,7 @@ if (!Yii::$app->user->isGuest) {
             </div>
             <div class="header__account">
                 <a class="header__account-photo">
-                    <img src="/img/<?= $user->avatar ?>"
+                    <img src="/uploads/user-images/<?= $user->avatar ?>"
                          width="43" height="44"
                          alt="Аватар пользователя">
                 </a>
@@ -126,7 +126,7 @@ if (!Yii::$app->user->isGuest) {
             <div class="account__pop-up">
                 <ul class="account__pop-up-list">
                     <li>
-                        <a href="#">Мои задания</a>
+                        <a href="<?= Url::to(["/user-tasks"]) ?>">Мои задания</a>
                     </li>
                     <li>
                         <a href="#">Настройки</a>

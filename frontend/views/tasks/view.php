@@ -93,7 +93,7 @@ $user = \Yii::$app->user->identity;
                         <div class="content-view__feedback-card">
                             <div class="feedback-card__top">
                                 <a href="/users/<?= $response->user['id'] ?>">
-                                    <img src="/img/<?= $response->user->avatar ?>"
+                                    <img src="/uploads/user-images/<?= $response->user->avatar ?>"
                                          width="55"
                                          height="55" alt="">
                                 </a>
@@ -131,7 +131,7 @@ $user = \Yii::$app->user->identity;
         <div class="profile-mini__wrapper">
             <h3>Заказчик</h3>
             <div class="profile-mini__top">
-                <img src="/img/<?= $task->owner->avatar ?>" width="62" height="62" alt="Аватар заказчика">
+                <img src="/uploads/user-images/<?= $task->owner->avatar ?>" width="62" height="62" alt="Аватар заказчика">
                 <div class="profile-mini__name five-stars__rate">
                     <p><?= Html::encode($task->owner->username); ?></p>
                     <?= $task->owner->rate ? Rate::widget(['rate' => $task->owner->rate, 'option' => 'stars-and-rate']) : "" ?>

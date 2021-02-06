@@ -159,3 +159,7 @@ label.create__file {
 #autoComplete{
   margin-bottom: 5px;
 }
+
+.my-list__bottom .link-name{
+  width: 400px;
+}
