@@ -129,7 +129,7 @@ if (!Yii::$app->user->isGuest) {
                         <a href="<?= Url::to(["/user-tasks"]) ?>">Мои задания</a>
                     </li>
                     <li>
-                        <a href="#">Настройки</a>
+                        <a href="<?= Url::to(["/account"]) ?>">Настройки</a>
                     </li>
                     <li>
                         <form action="<?= Url::to(["/site/logout"]) ?>" method="post">

@@ -24,6 +24,13 @@ class UserCategory extends \yii\db\ActiveRecord
         return 'user_category';
     }
 
+    public function scenarios()
+    {
+        return [
+            'default' => ['user_id', 'category_id']
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -66,5 +73,13 @@ class UserCategory extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasMany(User::className(), ['id' => 'user_id']);
+    }
+
+    public function saveUserCategory($user, $category_id)
+    {
+        $user_category = new UserCategory();
+        $user_category->user_id = $user->id;
+        $user_category->category_id = $category_id;
+        $user_category->save();
     }
 }

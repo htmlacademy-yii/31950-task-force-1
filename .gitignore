@@ -43,3 +43,5 @@ phpunit.phar
 /backend/web/robots.txt
 /frontend/runtime/
 /frontend/web/uploads/task-images
+/frontend/web/uploads/user-images
+/frontend/web/uploads/user-file

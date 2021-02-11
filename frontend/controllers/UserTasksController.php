@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use frontend\models\Task;
+use frontend\models\UserTask;
 
 class UserTasksController extends SecuredController
 {
@@ -25,10 +26,12 @@ class UserTasksController extends SecuredController
     public function actionActive()
     {
         $user = \Yii::$app->user->identity;
+
         $tasks = Task::find()->
         where(['status' => 'in work'])->
         andWhere(['owner_id' => $user->id])->
         orderBy('date_add DESC')->all();
+
         return $this->render('active', compact('tasks', 'user'));
     }
 
