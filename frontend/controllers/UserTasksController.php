@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use frontend\models\Task;
+use frontend\models\User;
 use frontend\models\UserTask;
 
 class UserTasksController extends SecuredController
@@ -18,30 +19,70 @@ class UserTasksController extends SecuredController
 
     public function actionCompleted()
     {
-        $user = \Yii::$app->user->identity;
-        $tasks = Task::find()->where(['status' => 'complete'])->andWhere(['owner_id' => $user->id])->orderBy('date_add DESC')->all();
+        $currentUser = \Yii::$app->user->identity;
+        $ownerTasks = Task::find()->where(['status' => 'complete'])->andWhere(['owner_id' => $currentUser->id])->orderBy('date_add DESC')->all();
+
+        $user = User::findOne($currentUser->id);
+        $userTasks = $user->tasks;
+
+        $completedUserTasks = [];
+        foreach ($userTasks as $userTask) {
+            if ($userTask->status == "complete") {
+                $completedUserTasks[0] = $userTask;
+            }
+        }
+        $commonTasks = array_merge($ownerTasks, $completedUserTasks);
+        $tasks = $this->customMultiSort($commonTasks, "date_add");
+
         return $this->render('completed', compact('tasks', 'user'));
     }
 
     public function actionActive()
     {
-        $user = \Yii::$app->user->identity;
+        $currentUser = \Yii::$app->user->identity;
 
-        $tasks = Task::find()->
+        $ownerTasks = Task::find()->
         where(['status' => 'in work'])->
-        andWhere(['owner_id' => $user->id])->
+        andWhere(['owner_id' => $currentUser->id])->
         orderBy('date_add DESC')->all();
+
+        $user = User::findOne($currentUser->id);
+
+        $userTasks = $user->tasks;
+        $activeUserTasks = [];
+        foreach ($userTasks as $userTask) {
+            if ($userTask->status == "in work") {
+                $activeUserTasks[0] = $userTask;
+            }
+        }
+
+        $commonTasks = array_merge($ownerTasks, $activeUserTasks);
+
+        $tasks = $this->customMultiSort($commonTasks, "date_add");
 
         return $this->render('active', compact('tasks', 'user'));
     }
 
     public function actionFailed()
     {
-        $user = \Yii::$app->user->identity;
-        $tasks = Task::find()->
+        $currentUser = \Yii::$app->user->identity;
+        $ownerTasks = Task::find()->
         where(['status' => 'failed'])->
-        andWhere(['owner_id' => $user->id])->orderBy('date_add DESC')->
+        andWhere(['owner_id' => $currentUser->id])->orderBy('date_add DESC')->
         all();
+        $user = User::findOne($currentUser->id);
+
+        $userTasks = $user->tasks;
+        $failedUserTasks = [];
+        foreach ($userTasks as $userTask) {
+            if ($userTask->status == "failed") {
+                $failedUserTasks[0] = $userTask;
+            }
+        }
+
+        $commonTasks = array_merge($ownerTasks, $failedUserTasks);
+
+        $tasks = $this->customMultiSort($commonTasks, "date_add");
         return $this->render('failed', compact('tasks', 'user'));
     }
 
@@ -50,5 +91,17 @@ class UserTasksController extends SecuredController
         $user = \Yii::$app->user->identity;
         $tasks = Task::find()->where(['status' => 'in work'])->andWhere(['<', 'date_expire', time()])->andWhere(['owner_id' => $user->id])->orderBy('date_add DESC')->all();
         return $this->render('past', compact('tasks', 'user'));
+    }
+
+    public function customMultiSort($array, $field)
+    {
+        $sortArr = array();
+        foreach ($array as $key => $val) {
+            $sortArr[$key] = $val[$field];
+        }
+
+        array_multisort($sortArr, $array);
+
+        return $array;
     }
 }
