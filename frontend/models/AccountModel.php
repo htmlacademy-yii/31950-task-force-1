@@ -73,10 +73,12 @@ class AccountModel extends Model
         $currentUser = \Yii::$app->user->identity;
         $user = User::findOne($currentUser->id);
         $profile = UserProfile::find()->where(['user_id' => $user->id])->one();
+        $isNewProfile = false;
         if ($profile) {
             $profileId = $profile->profile_id;
             $profile = Profile::findOne($profileId);
         } else {
+            $isNewProfile = true;
             $profile = new Profile();
         }
         $user->email = $this->email;
@@ -117,7 +119,12 @@ class AccountModel extends Model
         }
         $user->save();
         $profile->save();
-
+        if($isNewProfile){
+            $userProfile = new UserProfile();
+            $userProfile->profile_id = $profile->id;
+            $userProfile->user_id = $currentUser->id;
+            $userProfile->save();
+        }
     }
 
     public function uploadAvatar(string $path): bool
