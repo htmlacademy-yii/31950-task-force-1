@@ -55,11 +55,11 @@ class AccountModel extends Model
         $this->notification_to_new_review = $user->notification_to_new_review;
         $this->show_my_account = $user->show_my_account;
         $this->show_my_contacts = $user->show_my_contacts;
-        $this->date_birthday = Yii::$app->formatter->asDate($user->profile[0]['date_birthday'], 'yyyy-MM-dd');
-        $this->about = $user->profile[0]['about'];
-        $this->phone = $user->profile[0]['phone'];
-        $this->skype = $user->profile[0]['skype'];
-        $this->telegram = $user->profile[0]['telegram'];
+        $this->date_birthday = $user->profile ? Yii::$app->formatter->asDate($user->profile[0]['date_birthday'], 'yyyy-MM-dd') : "";
+        $this->about = $user->profile ? $user->profile[0]['about'] : "";
+        $this->phone = $user->profile ? $user->profile[0]['phone'] : "";
+        $this->skype = $user->profile ? $user->profile[0]['skype'] : "";
+        $this->telegram = $user->profile ? $user->profile[0]['telegram'] : "";
         $this->email = $user->email;
         $userCategory = UserCategory::find()->where(['user_id' => $user->id])->all();
         $category = [];
