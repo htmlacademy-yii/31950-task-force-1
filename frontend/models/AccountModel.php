@@ -3,7 +3,6 @@
 
 namespace frontend\models;
 
-use app\models\UserFile;
 use DateTime;
 use Yii;
 use yii\base\Model;
@@ -73,8 +72,13 @@ class AccountModel extends Model
     {
         $currentUser = \Yii::$app->user->identity;
         $user = User::findOne($currentUser->id);
-        $profileId = UserProfile::find()->where(['user_id' => $user->id])->one()->profile_id;
-        $profile = Profile::findOne($profileId);
+        $profile = UserProfile::find()->where(['user_id' => $user->id])->one();
+        if ($profile) {
+            $profileId = $profile->profile_id;
+            $profile = Profile::findOne($profileId);
+        } else {
+            $profile = new Profile();
+        }
         $user->email = $this->email;
         $user->city_id = $this->city;
         $user->role = "owner";
