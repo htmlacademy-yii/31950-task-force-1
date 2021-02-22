@@ -95,11 +95,11 @@ AccountAsset::register($this);
     <h3 class="div-line">Контакты</h3>
     <div class="account__redaction-section-wrapper account__redaction">
         <?= $form->
-        field($model, 'phone', ['options' => ['class' => 'account__input']])->
+        field($profile, 'phone', ['options' => ['class' => 'account__input']])->
         textInput(['class' => "input textarea", 'type' => 'tel'])->
         label('Телефон') ?>
 
-        <?= $form->field($model, 'skype', ['options' => ['class' => 'account__input']])->
+        <?= $form->field($profile, 'skype', ['options' => ['class' => 'account__input']])->
         textInput(['class' => "input textarea"])->
         label('Skype') ?>
 
