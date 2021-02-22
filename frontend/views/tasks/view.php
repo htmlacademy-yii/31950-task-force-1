@@ -166,19 +166,21 @@ $user = \Yii::$app->user->identity;
 </script>
 <script type="text/javascript">
     const map = document.getElementById("map");
-    const latitude = map.dataset.latitude;
-    const longitude = map.dataset.longitude;
-    if (latitude && longitude) {
-        ymaps.ready(init);
+    if(map){
+        const latitude = map.dataset.latitude;
+        const longitude = map.dataset.longitude;
+        if (latitude && longitude) {
+            ymaps.ready(init);
 
-        function init() {
-            var myMap = new ymaps.Map("map", {
-                center: [latitude, longitude],
-                zoom: 14
-            });
-            myMap.geoObjects.add(new ymaps.Placemark([latitude, longitude], {}, {
-                preset: 'islands#redIcon',
-            }));
+            function init() {
+                var myMap = new ymaps.Map("map", {
+                    center: [latitude, longitude],
+                    zoom: 14
+                });
+                myMap.geoObjects.add(new ymaps.Placemark([latitude, longitude], {}, {
+                    preset: 'islands#redIcon',
+                }));
+            }
         }
     }
 </script>

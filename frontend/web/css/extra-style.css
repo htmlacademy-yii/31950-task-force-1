@@ -8,10 +8,6 @@
   height: 454px;
 }
 
-.lightbulb__pop-up {
-  right: -30px;
-}
-
 .lightbulb__pop-up_guest h3::before,
 .lightbulb__pop-up_guest h3::after {
   left: 90px;

@@ -58,3 +58,27 @@ if (starRating.length) {
     inputField.value = rating;
   });
 }
+
+const lightbulb = document.getElementsByClassName('header__lightbulb')[0];
+const lightbulbPopUp = document.querySelector("#js-lightbulb__pop-up-tasks");
+const fragment = document.getElementById("lightbulb-template");
+
+lightbulb.addEventListener('mouseover', function () {
+  fetch('/events/index')
+    .then(res => res.json())
+    .then(res => {
+      const info = res.info;
+      const tasks = res.tasks;
+      lightbulbPopUp.innerHTML = "";
+      for (let i = 0; i < info.length; i++) {
+        const item = info[i];
+        const task = tasks.find(el => el.id === item.task_id)
+        const instance = document.importNode(fragment.content, true);
+        instance.querySelector('span').innerHTML = item.message;
+        instance.querySelector('.link-regular').innerHTML = ` «${task.name}»`;
+        instance.querySelector('.link-regular').setAttribute("href", `/tasks/${item.task_id}`);
+        instance.querySelector('.lightbulb__new-task').classList.add(`lightbulb__new-task--${item.category}`);
+        lightbulbPopUp.appendChild(instance);
+      }
+    })
+});

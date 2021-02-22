@@ -29,9 +29,18 @@ class TaskReject extends Model
 
         $user_id = \Yii::$app->user->identity->id;
         $user = User::findOne($user_id);
-        $profile_id = $user->profile[0]->id;
+        $profile_id = $user->profile->id;
         $profile = Profile::findOne($profile_id);
         $profile->popular = $profile->popular - 1;
+
         $profile->save();
+
+        $info = new Info();
+        $info->category = "close";
+        $info->message = "Отказ от задания исполнителем";
+        $info->task_id = $id;
+        $info->user_id = $task->owner_id;
+        $info->save();
+
     }
 }

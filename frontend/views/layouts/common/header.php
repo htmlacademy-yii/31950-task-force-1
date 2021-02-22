@@ -99,19 +99,10 @@ if (!Yii::$app->user->isGuest) {
             <div class="header__lightbulb"></div>
             <div class="lightbulb__pop-up">
                 <h3>Новые события</h3>
-                <p class="lightbulb__new-task lightbulb__new-task--message">
-                <p class="lightbulb__new-task lightbulb__new-task--message">
-                    Новое сообщение в чате
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
-                <p class="lightbulb__new-task lightbulb__new-task--executor">
-                    Выбран исполнитель для
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
-                <p class="lightbulb__new-task lightbulb__new-task--close">
-                    Завершено задание
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
+                <template id="lightbulb-template">
+                    <p class="lightbulb__new-task"><span></span><a href="" class="link-regular"></a></p>
+                </template>
+                <div id="js-lightbulb__pop-up-tasks"></div>
             </div>
             <div class="header__account">
                 <a class="header__account-photo">

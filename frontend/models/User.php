@@ -112,7 +112,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getProfile()
     {
-        return $this->hasMany(Profile::className(), ['id' => 'profile_id'])->
+        return $this->hasOne(Profile::className(), ['id' => 'profile_id'])->
         viaTable("user_profile", ['user_id' => 'id']);
     }
 

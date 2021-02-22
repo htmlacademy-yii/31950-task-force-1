@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Info;
 use frontend\models\TaskCancel;
 use frontend\models\TaskReject;
 use frontend\models\TaskResponse;
@@ -45,7 +46,6 @@ class TasksController extends SecuredController
         }
 
         $tasks = $model->applyFilters($allTasks)->all();
-
         return $this->render('index', compact('tasks', 'categories', 'model'));
     }
 
@@ -59,7 +59,7 @@ class TasksController extends SecuredController
         $user = \Yii::$app->user->identity;
         $check = new CheckController($user, $task);
 
-        return $this->render('view', compact('task','check'));
+        return $this->render('view', compact('task', 'check'));
     }
 
     public function actionCreate()
@@ -103,6 +103,7 @@ class TasksController extends SecuredController
                 $model->saveForm($id);
             }
         }
+
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -114,6 +115,14 @@ class TasksController extends SecuredController
                 $model->saveForm($id);
             }
         }
+        $task = Task::findOne($id);
+
+        $info = new Info();
+        $info->category = "message";
+        $info->message = "Новый отклик к заданию";
+        $info->task_id = $id;
+        $info->user_id = $task->owner_id;
+        $info->save();
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -139,6 +148,13 @@ class TasksController extends SecuredController
         $task = Task::findOne($taskId);
         $task->status = 'in work';
         $task->save();
+
+        $info = new Info();
+        $info->category = "executor";
+        $info->message = "Старт задания";
+        $info->task_id = $taskId;
+        $info->user_id = $userId;
+        $info->save();
 
         return $this->redirect(Yii::$app->request->referrer);
     }

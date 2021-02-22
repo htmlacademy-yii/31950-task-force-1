@@ -16,6 +16,7 @@ namespace frontend\models;
  * @property float $latitude
  * @property float $longitude
  * @property float $status
+ * @property int $owner_id
  *
  * @property TaskCategory[] $taskCategories
  */
@@ -60,6 +61,7 @@ class Task extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'status' => 'Status',
+            'owner_id' => 'Owner ID',
         ];
     }
 
