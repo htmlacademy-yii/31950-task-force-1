@@ -25,7 +25,7 @@ $user = \Yii::$app->user->identity;
                     <h1><?= $task['name'] ?></h1>
                     <span>Размещено в <?= count($task->categories) > 1 ? "категориях" : "категории" ?>
                         <? foreach ($task->categories as $category): ?>
-                            <a href="<?= '/category/' . $category['slug'] ?>"
+                            <a href="<?= Url::to(["/category/" . $category['slug']]) ?>"
                                class="link-regular"><?= $category['name'] ?></a>
                         <? endforeach; ?>
                         <?= Yii::$app->formatter->asRelativeTime($task['date_add']) ?>
@@ -92,13 +92,13 @@ $user = \Yii::$app->user->identity;
                     <? if ($check->isShowResponse($response)): ?>
                         <div class="content-view__feedback-card">
                             <div class="feedback-card__top">
-                                <a href="/users/<?= $response->user['id'] ?>">
+                                <a href="<?= Url::to(["/users/" . $response->user['id']]) ?>">
                                     <img src="/uploads/user-images/<?= $response->user->avatar ?>"
                                          width="55"
                                          height="55" alt="">
                                 </a>
                                 <div class="feedback-card__top--name">
-                                    <p><a href="/users/<?= $response->user['id'] ?>"
+                                    <p><a href="<?= Url::to(["/users/" . $response->user['id']]) ?>"
                                           class="link-regular"><?= $response->user['username'] ?></a></p>
                                     <?= $response->user->rate ? Rate::widget(['rate' => $response->user->rate, 'option' => 'stars-and-rate']) : "" ?>
                                 </div>
@@ -131,7 +131,8 @@ $user = \Yii::$app->user->identity;
         <div class="profile-mini__wrapper">
             <h3>Заказчик</h3>
             <div class="profile-mini__top">
-                <img src="/uploads/user-images/<?= $task->owner->avatar ?>" width="62" height="62" alt="Аватар заказчика">
+                <img src="/uploads/user-images/<?= $task->owner->avatar ?>" width="62" height="62"
+                     alt="Аватар заказчика">
                 <div class="profile-mini__name five-stars__rate">
                     <p><?= Html::encode($task->owner->username); ?></p>
                     <?= $task->owner->rate ? Rate::widget(['rate' => $task->owner->rate, 'option' => 'stars-and-rate']) : "" ?>
@@ -153,7 +154,8 @@ $user = \Yii::$app->user->identity;
     </div>
     <div class="connect-desk__chat">
         <div id="chat-container">
-            <chat class="connect-desk__chat" task="<?= $task->id ?>" user="<?= $user->id ?>" owner="<?= $task->owner_id ?>"
+            <chat class="connect-desk__chat" task="<?= $task->id ?>" user="<?= $user->id ?>"
+                  owner="<?= $task->owner_id ?>"
                   worker="<?= $task->user ? $task->user->user_id : null ?>"></chat>
         </div>
     </div>
@@ -166,7 +168,7 @@ $user = \Yii::$app->user->identity;
 </script>
 <script type="text/javascript">
     const map = document.getElementById("map");
-    if(map){
+    if (map) {
         const latitude = map.dataset.latitude;
         const longitude = map.dataset.longitude;
         if (latitude && longitude) {

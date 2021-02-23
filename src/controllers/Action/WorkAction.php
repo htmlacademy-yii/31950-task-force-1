@@ -21,7 +21,7 @@ class WorkAction extends AbstractAction
         $result = false;
 
         if ($task->status == 'new') {
-            if ($task->user && $user->id == $task->user->user_id) {
+            if ($task->owner && $user->id == $task->owner->id) {
                 $result = false;
             } else {
                 $result = true;

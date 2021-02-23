@@ -2,20 +2,21 @@
 
 use \htmlacademy\helpers\SiteHelper;
 use frontend\widgets\Rate;
+use yii\helpers\Url;
 
 $tasksCount = count($user->tasks);
 $opinionsCount = count($user->opinions);
 
-$this->title = 'TaskForce | ' .  $user['username'];
+$this->title = 'TaskForce | ' . $user['username'];
 ?>
 <section class="content-view">
     <div class="user__card-wrapper">
         <div class="user__card">
-            <img src="/img/<?= $user->avatar ?>" width="120" height="120" alt="Аватар пользователя">
+            <img src="/uploads/user-images/<?= $user->avatar ?>" width="120" height="120" alt="Аватар пользователя">
             <div class="content-view__headline">
                 <h1><?= $user['username'] ?></h1>
-                <p><?= $user->profile[0]->address ?>
-                    , <?= SiteHelper::dateDifference(time(), $user->profile[0]->date_birthday, '%Y') ?>
+                <p><?= $user->profile->address ?>
+                    , <?= SiteHelper::dateDifference(time(), $user->profile->date_birthday, '%Y') ?>
                     лет</p>
                 <div class="profile-mini__name five-stars__rate">
                     <?= $user->rate ? Rate::widget(['rate' => $user->rate, 'option' => 'stars-and-rate']) : "" ?>
@@ -31,22 +32,22 @@ $this->title = 'TaskForce | ' .  $user['username'];
             </div>
         </div>
         <div class="content-view__description">
-            <p><?= $user->profile[0]->about ?></p>
+            <p><?= $user->profile->about ?></p>
         </div>
         <div class="user__card-general-information">
             <div class="user__card-info">
                 <h3 class="content-view__h3">Специализации</h3>
                 <div class="link-specialization">
                     <? foreach ($user->categories as $category) : ?>
-                        <a href="/category/<?= $category['slug'] ?>"
+                        <a href="<?= Url::to(["/category/" . $category['slug']]) ?>"
                            class="link-regular"><?= $category['name'] ?></a>
                     <? endforeach; ?>
                 </div>
                 <h3 class="content-view__h3">Контакты</h3>
                 <div class="user__card-link">
-                    <a class="user__card-link--tel link-regular" href="#"><?= $user->profile[0]->phone ?></a>
+                    <a class="user__card-link--tel link-regular" href="#"><?= $user->profile->phone ?></a>
                     <a class="user__card-link--email link-regular" href="#"><?= $user->email ?></a>
-                    <a class="user__card-link--skype link-regular" href="#"><?= $user->profile[0]->skype ?></a>
+                    <a class="user__card-link--skype link-regular" href="#"><?= $user->profile->skype ?></a>
                 </div>
             </div>
             <?
@@ -77,18 +78,18 @@ $this->title = 'TaskForce | ' .  $user['username'];
             <div class="content-view__feedback-wrapper reviews-wrapper">
                 <? foreach ($user->opinions as $opinion) : ?>
                     <?
-                    $userUrl = "/users/user/" . $opinion->owner->id;
+                    $userUrl = Url::to(["/users/user/" . $opinion->owner->id]);
                     if ($opinion->owner->profile) {
-                        $userUrl = "/users/" . $opinion->owner->id;
+                        $userUrl = Url::to(["/users/" . $opinion->owner->id]);
                     }
                     ?>
                     <div class="feedback-card__reviews">
-                        <p class="link-task link">Задание <a href="/tasks/<?= $opinion->task->id ?>"
+                        <p class="link-task link">Задание <a href="<?= Url::to(["/tasks/" . $opinion->task->id]) ?>"
                                                              class="link-regular">«<?= $opinion->task->name ?>»</a>
                         </p>
                         <div class="card__review">
                             <a href="<?= $userUrl ?>">
-                                <img alt="" src="/img/<?= $opinion->owner->avatar ?>" width="55"
+                                <img alt="" src="/uploads/user-images/<?= $opinion->owner->avatar ?>" width="55"
                                      height="54">
                             </a>
                             <div class="feedback-card__reviews-content">

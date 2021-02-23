@@ -20,7 +20,7 @@ class AccountController extends SecuredController
         $model->loadDefaultValues();
         $currentUser = \Yii::$app->user->identity;
         $user = User::findOne($currentUser->id);
-        $profileId = $user->profile[0]->id;
+        $profileId = $user->profile->id;
         $profile = Profile::findOne($profileId);
         $cities = City::find()->all();
         $cities = ArrayHelper::map($cities, 'id', 'name');

@@ -2,6 +2,7 @@
 
 use htmlacademy\helpers\SiteHelper;
 use frontend\widgets\Rate;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var $users */
@@ -16,13 +17,13 @@ $this->title = 'TaskForce | Список исполнителей';
         <p>Сортировать по:</p>
         <ul class="user__search-list">
             <li class="user__search-item <?= Yii::$app->getRequest()->pathInfo == "users" ? "user__search-item--current" : "" ?>">
-                <a href="/users" class="link-regular">Рейтингу</a>
+                <a href="<?= Url::to(["/users"]) ?>" class="link-regular">Рейтингу</a>
             </li>
             <li class="user__search-item <?= Yii::$app->getRequest()->pathInfo == "users/number" ? "user__search-item--current" : "" ?>">
-                <a href="/users/number" class="link-regular">Числу заказов</a>
+                <a href="<?= Url::to(["/users/number"]) ?>" class="link-regular">Числу заказов</a>
             </li>
             <li class="user__search-item <?= Yii::$app->getRequest()->pathInfo == "users/popular" ? "user__search-item--current" : "" ?>">
-                <a href="/users/popular" class="link-regular">Популярности</a>
+                <a href="<?= Url::to(["/users/popular"]) ?>" class="link-regular">Популярности</a>
             </li>
         </ul>
     </div>
@@ -34,18 +35,19 @@ $this->title = 'TaskForce | Список исполнителей';
         <div class="content-view__feedback-card user__search-wrapper">
             <div class="feedback-card__top">
                 <div class="user__search-icon">
-                    <a href="/users/<?= $user['id'] ?>">
-                        <img src="/img/<?= $user->avatar?>" width="65"
-                                     height="65" alt="">
+                    <a href="<?= Url::to(["/users/" . $user['id']]) ?>">
+                        <img src="/uploads/user-images/<?= $user->avatar ?>" width="65"
+                             height="65" alt="">
                     </a>
                     <span><?= $tasksCount ?> <?= SiteHelper::plural($tasksCount, ['задание', 'задания', 'заданий']) ?></span>
                     <span><?= $opinionsCount ?> <?= SiteHelper::plural($opinionsCount, ['отзыв', 'отзыва', 'отзывов']) ?></span>
                 </div>
                 <div class="feedback-card__top--name user__search-card">
-                    <p class="link-name"><a href="/users/<?= $user['id'] ?>" class="link-regular"><?= $user['username'] ?></a></p>
+                    <p class="link-name"><a href="<?= Url::to(["/users/" . $user['id']]) ?>"
+                                            class="link-regular"><?= $user['username'] ?></a></p>
                     <?= $user->rate ? Rate::widget(['rate' => $user->rate, 'option' => 'stars-and-rate']) : "" ?>
                     <p class="user__search-content">
-                        <?= $user->profile ? $user->profile[0]->about : "" ?>
+                        <?= $user->profile ? $user->profile->about : "" ?>
                     </p>
                 </div>
                 <span
@@ -54,7 +56,7 @@ $this->title = 'TaskForce | Список исполнителей';
             <? if (count($user->categories)): ?>
                 <div class="link-specialization user__search-link--bottom">
                     <? foreach ($user->categories as $category) : ?>
-                        <a href="/category/<?= $category['slug'] ?>"
+                        <a href="<?= Url::to(["/category/" . $category['slug']]) ?>"
                            class="link-regular"><?= $category['name'] ?></a>
                     <? endforeach; ?>
                 </div>

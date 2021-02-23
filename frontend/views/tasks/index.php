@@ -1,6 +1,7 @@
 <?
 
 use htmlacademy\helpers\SiteHelper;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var $tasks */
@@ -17,11 +18,12 @@ $this->title = 'TaskForce | Список задач';
         <? foreach ($tasks as $task): ?>
             <div class="new-task__card">
                 <div class="new-task__title">
-                    <a href="/tasks/<?= $task['id'] ?>" class="link-regular"><h2><?= $task['name'] ?></h2></a>
+                    <a href="<?= Url::to(["/tasks/" . $task['id']]) ?>" class="link-regular">
+                        <h2><?= $task['name'] ?></h2></a>
                     <div class="links" style="display: flex;margin-left: -10px;">
                         <? foreach ($task->categories as $category): ?>
                             <a class="new-task__type link-regular" style="margin-left: 10px;"
-                               href="<?= '/category/' . $category['slug'] ?>">
+                               href="<?= Url::to(["/category/" . $category['slug']]) ?>">
                                 <p><?= $category['name'] ?></p>
                             </a>
                         <? endforeach; ?>

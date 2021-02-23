@@ -1,5 +1,7 @@
 <?php
+
 use frontend\widgets\Rate;
+use yii\helpers\Url;
 
 /** @var $tasks */
 /** @var $text */
@@ -11,11 +13,12 @@ use frontend\widgets\Rate;
         <? foreach ($tasks as $task): ?>
             <div class="new-task__card">
                 <div class="new-task__title">
-                    <a href="/tasks/<?= $task->id ?>" class="link-regular"><h2><?= $task->name ?></h2></a>
+                    <a href="<?= Url::to(["/tasks/" . $task->id]) ?>" class="link-regular"><h2><?= $task->name ?></h2>
+                    </a>
                     <div class="links" style="display: flex;margin-left: -10px;">
                         <? foreach ($task->categories as $category): ?>
                             <a class="new-task__type link-regular" style="margin-left: 10px;"
-                               href="<?= '/category/' . $category['slug'] ?>">
+                               href="<?= Url::to(["/category/" . $category['slug']]) ?>">
                                 <p><?= $category['name'] ?></p>
                             </a>
                         <? endforeach; ?>
@@ -26,13 +29,14 @@ use frontend\widgets\Rate;
                 <? if (count($task->response)): ?>
                     <? foreach ($task->response as $response): ?>
                         <div class="feedback-card__top">
-                            <a href="/users/<?= $response->user->id ?>">
+                            <a href="<?= Url::to(["/users/" . $response->user->id]) ?>">
                                 <img src="/uploads/user-images/<?= $response->user->avatar ?>" alt="" width="36"
                                      height="36">
                             </a>
                             <div class="feedback-card__top--name my-list__bottom">
                                 <p class="link-name">
-                                    <a href="#" class="link-regular"><?= $response->user->username ?></a>
+                                    <a href="<?= Url::to(["/users/" . $response->user->id]) ?>"
+                                       class="link-regular"><?= $response->user->username ?></a>
                                 </p>
                                 <?
                                 $count = 0;
@@ -42,7 +46,7 @@ use frontend\widgets\Rate;
                                     }
                                 }
                                 ?>
-                                <a href="/tasks/<?= $task->id ?>#chat-container"
+                                <a href="<?= Url::to(["/tasks/" . $task->id]) ?>#chat-container"
                                    class="my-list__bottom-chat <?= $count ? 'my-list__bottom-chat--new' : '' ?>"><b><?= $count ?: "" ?></b></a>
                                 <?= $response->user->rate ? Rate::widget(['rate' => $response->user->rate, 'option' => 'stars-and-rate']) : "" ?>
                             </div>

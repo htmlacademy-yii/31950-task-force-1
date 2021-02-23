@@ -174,3 +174,7 @@ label.create__file {
 form .has-error input {
   border-color: #FF116E;
 }
+
+.user__search-icon img, .card__review img{
+  object-fit: cover;
+}
