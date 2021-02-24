@@ -2,6 +2,7 @@
 
 use frontend\assets\AppAsset;
 use \frontend\widgets\Modal;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -80,7 +81,7 @@ AppAsset::register($this);
                 <a href="#" class="header__account-enter open-modal" data-for="enter-form">
                     <span>Вход</span></a>
                 или
-                <a href="/register" class="header__account-registration">
+                <a href="<?= Url::to(["/register"]) ?>" class="header__account-registration">
                     Регистрация
                 </a>
             </div>
@@ -94,7 +95,7 @@ AppAsset::register($this);
                 <p>Сломался кран на кухне? Надо отправить документы? Нет времени самому гулять с собакой?
                     У нас вы быстро найдёте исполнителя для любой жизненной ситуации?<br>
                     Быстро, безопасно и с гарантией. Просто, как раз, два, три. </p>
-                <a href="/register" class="button">
+                <a href="<?= Url::to(["/register"]) ?>" class="button">
                     Создать аккаунт
                 </a>
             </div>
@@ -244,7 +245,7 @@ AppAsset::register($this);
                     </div>
                 </div>
                 <div class="landing-bottom-container">
-                    <button type="button" class="button red-button">смотреть все задания</button>
+                    <button type="button" class="button red-button">Смотреть все задания</button>
                 </div>
             </div>
         </div>

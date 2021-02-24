@@ -16,6 +16,7 @@ namespace frontend\models;
  * @property float $latitude
  * @property float $longitude
  * @property float $status
+ * @property int $owner_id
  *
  * @property TaskCategory[] $taskCategories
  */
@@ -60,6 +61,7 @@ class Task extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'status' => 'Status',
+            'owner_id' => 'Owner ID',
         ];
     }
 
@@ -115,44 +117,15 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(UserTask::className(), ['task_id' => 'id']);
     }
 
-
     /**
-     * Проверка права пользователя на создание сообщения к данному заданию
+     * Gets query for [[Message]].
      *
-     * @param int $userId идентификатор пользователя
-     *
-     * @return bool резльутат проверки, есть право на создание, или нет
+     * @return \yii\db\ActiveQuery
      */
-    public function getAccessCheckMessageCreate(int $userId): bool
+    public function getMessages()
     {
-        return $this->getIsSelectedExecutor($userId)
-            || $this->getIsAuthor($userId);
+        return $this->hasMany(Message::className(), ['task_id' => 'id']);
     }
 
-    /**
-     * Проверка, является ли пользователь с указанным идентификатором
-     * исполнителем этого задания
-     *
-     * @param int $userId идентификатор пользователя
-     *
-     * @return bool результат проверки, является ли пользователь исполнителем задания
-     */
-    public function getIsSelectedExecutor(int $userId): bool
-    {
-        return ($this->user->id ?? null) === $userId;
-    }
-
-    /**
-     * Проверка, является ли пользователь с указанным идентификатором
-     * автором этого задания
-     *
-     * @param int $userId идентификатор пользователя
-     *
-     * @return bool результат проверки, является ли пользователь автором задания
-     */
-    public function getIsAuthor(int $userId): bool
-    {
-        return $this->owner_id === $userId;
-    }
 
 }

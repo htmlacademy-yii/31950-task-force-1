@@ -13,7 +13,7 @@ if (!Yii::$app->user->isGuest) {
 <header class="page-header">
     <div class="main-container page-header__container">
         <div class="page-header__logo">
-            <a href="/">
+            <a href="<?= Url::to(["/"]) ?>">
                 <svg class="page-header__logo-image" id="Layer_2" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 1634 646.35">
                     <title>taskforce_logo2-01</title>
@@ -70,14 +70,14 @@ if (!Yii::$app->user->isGuest) {
             <div class="header__nav">
                 <ul class="header-nav__list site-list">
                     <li class="site-list__item">
-                        <a href="/tasks">Задания</a>
+                        <a href="<?= Url::to(["/tasks"]) ?>">Задания</a>
                     </li>
                     <li class="site-list__item">
-                        <a href="/users">Исполнители</a>
+                        <a href="<?= Url::to(["/users"]) ?>">Исполнители</a>
                     </li>
                     <? if ($user->role == "owner"): ?>
                         <li class="site-list__item">
-                            <a href="/tasks/create">Создать задание</a>
+                            <a href="<?= Url::to(["/tasks/create"]) ?>">Создать задание</a>
                         </li>
                     <? endif; ?>
 
@@ -99,23 +99,14 @@ if (!Yii::$app->user->isGuest) {
             <div class="header__lightbulb"></div>
             <div class="lightbulb__pop-up">
                 <h3>Новые события</h3>
-                <p class="lightbulb__new-task lightbulb__new-task--message">
-                <p class="lightbulb__new-task lightbulb__new-task--message">
-                    Новое сообщение в чате
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
-                <p class="lightbulb__new-task lightbulb__new-task--executor">
-                    Выбран исполнитель для
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
-                <p class="lightbulb__new-task lightbulb__new-task--close">
-                    Завершено задание
-                    <a href="#" class="link-regular">«Помочь с курсовой»</a>
-                </p>
+                <template id="lightbulb-template">
+                    <p class="lightbulb__new-task"><span></span><a href="" class="link-regular"></a></p>
+                </template>
+                <div id="js-lightbulb__pop-up-tasks"></div>
             </div>
             <div class="header__account">
                 <a class="header__account-photo">
-                    <img src="/img/<?= $user->avatar ?>"
+                    <img src="/uploads/user-images/<?= $user->avatar ?>"
                          width="43" height="44"
                          alt="Аватар пользователя">
                 </a>
@@ -126,10 +117,10 @@ if (!Yii::$app->user->isGuest) {
             <div class="account__pop-up">
                 <ul class="account__pop-up-list">
                     <li>
-                        <a href="#">Мои задания</a>
+                        <a href="<?= Url::to(["/user-tasks"]) ?>">Мои задания</a>
                     </li>
                     <li>
-                        <a href="#">Настройки</a>
+                        <a href="<?= Url::to(["/account"]) ?>">Настройки</a>
                     </li>
                     <li>
                         <form action="<?= Url::to(["/site/logout"]) ?>" method="post">

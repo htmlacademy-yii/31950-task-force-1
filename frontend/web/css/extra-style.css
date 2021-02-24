@@ -8,10 +8,6 @@
   height: 454px;
 }
 
-.lightbulb__pop-up {
-  right: -30px;
-}
-
 .lightbulb__pop-up_guest h3::before,
 .lightbulb__pop-up_guest h3::after {
   left: 90px;
@@ -41,7 +37,7 @@
   font-weight: 300;
 }
 
-.help-block-error:not(:empty){
+.help-block-error:not(:empty) {
   display: block;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -55,7 +51,7 @@
 }
 
 .create__task-form textarea,
-.create__task-form input{
+.create__task-form input {
   margin-bottom: 0;
 }
 
@@ -123,7 +119,7 @@ label.create__file {
   text-decoration: underline;
 }
 
-.p-10{
+.p-10 {
   padding: 10px;
 }
 
@@ -140,11 +136,11 @@ label.create__file {
 }
 
 
-.modal{
+.modal {
   bottom: auto;
 }
 
-.completion-label--yes{
+.completion-label--yes {
   padding-left: 0 !important;
 }
 
@@ -152,10 +148,33 @@ label.create__file {
   display: none;
 }
 
-.autoComplete_list li{
+.autoComplete_list li {
   cursor: pointer;
 }
 
-#autoComplete{
+#autoComplete {
   margin-bottom: 5px;
+}
+
+.my-list__bottom .link-name {
+  width: 400px;
+}
+
+#accountmodel-category {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.account__redaction-avatar img,
+.header__account-photo img,
+.account__files img {
+  object-fit: cover;
+}
+
+form .has-error input {
+  border-color: #FF116E;
+}
+
+.user__search-icon img, .card__review img{
+  object-fit: cover;
 }

@@ -32,7 +32,7 @@ class Profile extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'default' => ['popular']
+            'default' => ['popular', 'date_birthday', 'telegram', 'phone', 'skype', 'about']
         ];
     }
 
@@ -42,7 +42,7 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['address', 'about'], 'string'],
+            [['address', 'about', 'telegram'], 'string'],
             [['date_birthday'], 'required'],
             [['date_birthday'], 'safe'],
             [['phone'], 'string', 'max' => 11],

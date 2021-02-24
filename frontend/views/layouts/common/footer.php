@@ -1,7 +1,11 @@
 <?php
 
+use htmlacademy\helpers\SiteHelper;
 use yii\helpers\Url;
-
+$user = "";
+if (!Yii::$app->user->isGuest) {
+    $user = \Yii::$app->user->identity;
+}
 ?>
 <footer class="page-footer">
     <div class="main-container page-footer__container">
@@ -18,29 +22,29 @@ use yii\helpers\Url;
         <div class="page-footer__links">
             <ul class="links__list">
                 <li class="links__item">
-                    <a href="">Задания</a>
+                    <a href="<?= Url::to(["/tasks"]) ?>">Задания</a>
                 </li>
                 <? if (!Yii::$app->user->isGuest): ?>
                     <li class="links__item">
-                        <a href="">Мой профиль</a>
+                        <a href="<?= SiteHelper::getUserUrl($user) ?>">Мой профиль</a>
                     </li>
                 <? endif; ?>
                 <li class="links__item">
-                    <a href="">Исполнители</a>
+                    <a href="<?= Url::to(["/users"]) ?>">Исполнители</a>
                 </li>
                 <li class="links__item">
                     <a href="<?= Url::to(["/register"]) ?>">Регистрация</a>
                 </li>
                 <li class="links__item">
-                    <a href="">Создать задание</a>
+                    <a href="<?= Url::to(["/tasks/create"]) ?>">Создать задание</a>
                 </li>
                 <li class="links__item">
-                    <a href="">Справка</a>
+                    <a href="/">Справка</a>
                 </li>
             </ul>
         </div>
         <div class="page-footer__copyright">
-            <a>
+            <a href="https://htmlacademy.ru" target="_blank" rel="noopener">
                 <img class="copyright-logo"
                      src="/img/academy-logo.png"
                      width="185" height="63"

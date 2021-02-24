@@ -10,8 +10,16 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property string $password
+ * @property string $password_hash
  * @property string|null $date_last
+ * @property string|null $avatar
+ * @property number|null $city_id
+ * @property string $role
+ * @property boolean $notification_to_new_message
+ * @property boolean $notification_to_new_action
+ * @property boolean $notification_to_new_review
+ * @property boolean $show_my_contacts
+ * @property boolean $show_my_account
  *
  * @property Message[] $messages
  * @property Opinion[] $opinions
@@ -35,11 +43,11 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'city_id'], 'required'],
+            [['username', 'email', 'password_hash', 'city_id'], 'required'],
             [['date_last'], 'safe'],
-            [['name'], 'string', 'max' => 48],
+            [['username'], 'string', 'max' => 48],
             [['email'], 'string', 'max' => 128],
-            [['password'], 'string', 'max' => 64],
+            [['password_hash'], 'string', 'max' => 64],
             [['city_id'], 'integer'],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
         ];
@@ -52,11 +60,17 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'username' => 'Name',
             'email' => 'Email',
-            'password' => 'Password',
+            'password_hash' => 'Password',
+            'avatar' => 'Avatar',
             'date_last' => 'Date Last',
             'city_id' => 'City ID',
+            'notification_to_new_message' => 'Notification To New Message',
+            'notification_to_new_action' => 'Notification To New Action',
+            'notification_to_new_review' => 'Notification To New Review',
+            'show_my_contacts' => 'Show My Contacts',
+            'show_my_account' => 'Show My Account',
         ];
     }
 
@@ -98,7 +112,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getProfile()
     {
-        return $this->hasMany(Profile::className(), ['id' => 'profile_id'])->
+        return $this->hasOne(Profile::className(), ['id' => 'profile_id'])->
         viaTable("user_profile", ['user_id' => 'id']);
     }
 
@@ -154,4 +168,15 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
+
+    /**
+     * Gets query for [[Files]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFiles()
+    {
+        return $this->hasMany(UserFile::className(), ['user_id' => 'id']);
+    }
+
 }
