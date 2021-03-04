@@ -484,7 +484,7 @@ footer {
   background-color: #ff4dd1; }
 
 .new-task__icon--photo {
-  background-image: url("../img/camera.png");
+  background-image: url("../uploads/user-images/camera.png");
   background-color: #ff9245; }
 
 .new-task__price {

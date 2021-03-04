@@ -28,6 +28,16 @@ return [
                 'application/json' => 'yii\web\JsonParser',
             ]
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'vkontakte' => [
+                    'class' => 'yii\authclient\clients\VKontakte',
+                    'clientId' => '7780695',
+                    'clientSecret' => 'E4WrLiqgPD0ykqB5JziN',
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

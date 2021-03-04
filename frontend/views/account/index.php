@@ -94,15 +94,16 @@ AccountAsset::register($this);
 
     <h3 class="div-line">Контакты</h3>
     <div class="account__redaction-section-wrapper account__redaction">
-        <?= $form->
-        field($profile, 'phone', ['options' => ['class' => 'account__input']])->
-        textInput(['class' => "input textarea", 'type' => 'tel'])->
-        label('Телефон') ?>
+        <? if (isset($profile)): ?>
+            <?= $form->
+            field($profile, 'phone', ['options' => ['class' => 'account__input']])->
+            textInput(['class' => "input textarea", 'type' => 'tel'])->
+            label('Телефон') ?>
 
-        <?= $form->field($profile, 'skype', ['options' => ['class' => 'account__input']])->
-        textInput(['class' => "input textarea"])->
-        label('Skype') ?>
-
+            <?= $form->field($profile, 'skype', ['options' => ['class' => 'account__input']])->
+            textInput(['class' => "input textarea"])->
+            label('Skype') ?>
+        <? endif; ?>
         <?= $form->field($model, 'telegram', ['options' => ['class' => 'account__input']])->
         textInput(['class' => "input textarea"])->
         label('Telegram') ?>
