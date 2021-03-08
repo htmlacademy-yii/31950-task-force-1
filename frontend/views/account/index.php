@@ -1,10 +1,12 @@
 <?php
 
+use htmlacademy\helpers\SiteHelper;
 use yii\bootstrap\ActiveForm;
 use frontend\assets\AccountAsset;
 
 /** @var $cities */
 /** @var $categories */
+/** @var $profile */
 AccountAsset::register($this);
 ?>
 
@@ -22,7 +24,7 @@ AccountAsset::register($this);
         <h3 class="div-line">Настройки аккаунта</h3>
         <div class="account__redaction-section-wrapper">
             <div class="account__redaction-avatar">
-                <img src="/uploads/user-images/<?= $user->avatar ?>" width="156" height="156" alt="avatar">
+                <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="156" height="156" alt="avatar">
                 <?= $form->
                 field($model, 'avatar')->
                 fileInput(['id' => "upload-avatar"])->
@@ -94,15 +96,16 @@ AccountAsset::register($this);
 
     <h3 class="div-line">Контакты</h3>
     <div class="account__redaction-section-wrapper account__redaction">
-        <?= $form->
-        field($profile, 'phone', ['options' => ['class' => 'account__input']])->
-        textInput(['class' => "input textarea", 'type' => 'tel'])->
-        label('Телефон') ?>
+        <? if (isset($profile)): ?>
+            <?= $form->
+            field($profile, 'phone', ['options' => ['class' => 'account__input']])->
+            textInput(['class' => "input textarea", 'type' => 'tel'])->
+            label('Телефон') ?>
 
-        <?= $form->field($profile, 'skype', ['options' => ['class' => 'account__input']])->
-        textInput(['class' => "input textarea"])->
-        label('Skype') ?>
-
+            <?= $form->field($profile, 'skype', ['options' => ['class' => 'account__input']])->
+            textInput(['class' => "input textarea"])->
+            label('Skype') ?>
+        <? endif; ?>
         <?= $form->field($model, 'telegram', ['options' => ['class' => 'account__input']])->
         textInput(['class' => "input textarea"])->
         label('Telegram') ?>

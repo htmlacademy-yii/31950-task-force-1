@@ -1,6 +1,7 @@
 <?php
 
 use frontend\widgets\Rate;
+use htmlacademy\helpers\SiteHelper;
 use yii\helpers\Url;
 
 /** @var $tasks */
@@ -30,8 +31,8 @@ use yii\helpers\Url;
                     <? foreach ($task->response as $response): ?>
                         <div class="feedback-card__top">
                             <a href="<?= Url::to(["/users/" . $response->user->id]) ?>">
-                                <img src="/uploads/user-images/<?= $response->user->avatar ?>" alt="" width="36"
-                                     height="36">
+                                <img src="<?= SiteHelper::getUserAvatar($response->user->avatar) ?>
+" alt="" width="36" height="36">
                             </a>
                             <div class="feedback-card__top--name my-list__bottom">
                                 <p class="link-name">

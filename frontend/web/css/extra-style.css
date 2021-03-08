@@ -77,6 +77,15 @@ label.create__file {
 .enter-form {
   bottom: auto;
 }
+.enter-form__auth{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.enter-form__auth .auth-clients{
+  margin-bottom: 0;
+}
 
 .form-modal {
   width: 340px;

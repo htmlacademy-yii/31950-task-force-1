@@ -20,24 +20,31 @@ class AccountController extends SecuredController
         $model->loadDefaultValues();
         $currentUser = \Yii::$app->user->identity;
         $user = User::findOne($currentUser->id);
-        $profileId = $user->profile->id;
-        $profile = Profile::findOne($profileId);
+        $profile = null;
+        if (!is_null($user->profile)) {
+            $profileId = $user->profile->id;
+            $profile = Profile::findOne($profileId);
+        }
         $cities = City::find()->all();
         $cities = ArrayHelper::map($cities, 'id', 'name');
         $categories = Category::find()->indexBy('id')->all();
         $categories = ArrayHelper::map($categories, 'id', 'name');
         $errors = null;
-        if ($model->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (isset($profile) && $profile->load(Yii::$app->request->post())) {
+                if ($profile->validate()) {
+                    $profile->save();
+                }
+            }
             $model->avatar = UploadedFile::getInstance($model, 'avatar');
             $model->file = UploadedFile::getInstances($model, 'file');
-            if ($model->validate() && $profile->validate()) {
+            if ($model->validate()) {
                 if (!is_dir(Yii::$app->params['userImagesPath'])) {
                     mkdir(Yii::$app->params['userImagesPath'], 0777, true);
                 }
                 $model->uploadAvatar(Yii::$app->params['userImagesPath']);
                 $model->uploadFile(Yii::$app->params['userFilesPath']);
                 $model->saveForm();
-                $profile->save();
                 return $this->redirect('/account');
             }
         }
