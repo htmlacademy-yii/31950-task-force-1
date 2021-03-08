@@ -36,7 +36,7 @@ $this->title = 'TaskForce | Список исполнителей';
             <div class="feedback-card__top">
                 <div class="user__search-icon">
                     <a href="<?= Url::to(["/users/" . $user['id']]) ?>">
-                        <img src="/uploads/user-images/<?= $user->avatar ?>" width="65"
+                        <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="65"
                              height="65" alt="">
                     </a>
                     <span><?= $tasksCount ?> <?= SiteHelper::plural($tasksCount, ['задание', 'задания', 'заданий']) ?></span>

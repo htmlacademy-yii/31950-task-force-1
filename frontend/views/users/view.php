@@ -12,7 +12,7 @@ $this->title = 'TaskForce | ' . $user['username'];
 <section class="content-view">
     <div class="user__card-wrapper">
         <div class="user__card">
-            <img src="/uploads/user-images/<?= $user->avatar ?>" width="120" height="120" alt="Аватар пользователя">
+            <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="120" height="120" alt="Аватар пользователя">
             <div class="content-view__headline">
                 <h1><?= $user['username'] ?></h1>
                 <p><?= $user->profile->address ?>
@@ -89,7 +89,7 @@ $this->title = 'TaskForce | ' . $user['username'];
                         </p>
                         <div class="card__review">
                             <a href="<?= $userUrl ?>">
-                                <img alt="" src="/uploads/user-images/<?= $opinion->owner->avatar ?>" width="55"
+                                <img alt="" src=" <?= SiteHelper::getUserAvatar($opinion->owner->avatar) ?>" width="55"
                                      height="54">
                             </a>
                             <div class="feedback-card__reviews-content">

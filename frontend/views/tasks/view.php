@@ -93,7 +93,7 @@ $user = \Yii::$app->user->identity;
                         <div class="content-view__feedback-card">
                             <div class="feedback-card__top">
                                 <a href="<?= Url::to(["/users/" . $response->user['id']]) ?>">
-                                    <img src="/uploads/user-images/<?= $response->user->avatar ?>"
+                                    <img src="<?= SiteHelper::getUserAvatar($response->user->avatar) ?>"
                                          width="55"
                                          height="55" alt="">
                                 </a>
@@ -131,7 +131,7 @@ $user = \Yii::$app->user->identity;
         <div class="profile-mini__wrapper">
             <h3>Заказчик</h3>
             <div class="profile-mini__top">
-                <img src="/uploads/user-images/<?= $task->owner->avatar ?>" width="62" height="62"
+                <img src="<?= SiteHelper::getUserAvatar($task->owner->avatar) ?>" width="62" height="62"
                      alt="Аватар заказчика">
                 <div class="profile-mini__name five-stars__rate">
                     <p><?= Html::encode($task->owner->username); ?></p>

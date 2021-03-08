@@ -106,7 +106,7 @@ if (!Yii::$app->user->isGuest) {
             </div>
             <div class="header__account">
                 <a class="header__account-photo">
-                    <img src="/uploads/user-images/<?= $user->avatar ?>"
+                    <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>"
                          width="43" height="44"
                          alt="Аватар пользователя">
                 </a>

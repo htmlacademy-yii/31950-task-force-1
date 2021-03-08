@@ -1,10 +1,11 @@
 <?
 $this->title = 'TaskForce | ' . $user['username'];
-?>
+
+use htmlacademy\helpers\SiteHelper; ?>
 <section class="content-view">
     <div class="user__card-wrapper">
         <div class="user__card">
-            <img src="/uploads/user-images/<?= $user->avatar ?>" width="120" height="120" alt="Аватар пользователя">
+            <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="120" height="120" alt="Аватар пользователя">
             <div class="content-view__headline">
                 <h1><?= $user['username'] ?></h1>
             </div>

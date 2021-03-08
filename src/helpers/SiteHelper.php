@@ -44,13 +44,25 @@ class SiteHelper
         return $interval->format($differenceFormat);
     }
 
-    public static function getUserUrl($user){
+    public static function getUserUrl($user)
+    {
         $userUrl = "/users/user/" . $user->id;
         if (isset($user->profile)) {
             $userUrl = "/users/" . $user->id;
         }
 
         return $userUrl;
+    }
+
+    public static function getUserAvatar($path)
+    {
+        $emailRegExp = "/^(https?:\/\/)/";
+        $url = "/uploads/user-images/" . $path;
+        if (preg_match($emailRegExp, $path)) {
+            $url = $path;
+        }
+
+        return $url;
     }
 
 }

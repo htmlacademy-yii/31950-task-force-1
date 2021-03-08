@@ -317,10 +317,10 @@ class SiteController extends SecuredController
                         'password' => $password,
                         'city_id' => 1,
                         'role' => "owner",
-                        'avatar' => "man-hat.png",
                         'verification_token' => $verification_token,
                         'date_last' => time(),
                         'status' => 10,
+                        'avatar' => $attributes['photo'],
                     ]);
                     $user->generateAuthKey();
                     $transaction = $user->getDb()->beginTransaction();

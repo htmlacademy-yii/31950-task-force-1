@@ -1,5 +1,6 @@
 <?php
 
+use htmlacademy\helpers\SiteHelper;
 use yii\bootstrap\ActiveForm;
 use frontend\assets\AccountAsset;
 
@@ -22,7 +23,7 @@ AccountAsset::register($this);
         <h3 class="div-line">Настройки аккаунта</h3>
         <div class="account__redaction-section-wrapper">
             <div class="account__redaction-avatar">
-                <img src="/uploads/user-images/<?= $user->avatar ?>" width="156" height="156" alt="avatar">
+                <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="156" height="156" alt="avatar">
                 <?= $form->
                 field($model, 'avatar')->
                 fileInput(['id' => "upload-avatar"])->
