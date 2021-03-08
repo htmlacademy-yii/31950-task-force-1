@@ -6,6 +6,7 @@ use frontend\assets\AccountAsset;
 
 /** @var $cities */
 /** @var $categories */
+/** @var $profile */
 AccountAsset::register($this);
 ?>
 

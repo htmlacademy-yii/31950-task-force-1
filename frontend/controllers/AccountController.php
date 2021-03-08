@@ -20,6 +20,7 @@ class AccountController extends SecuredController
         $model->loadDefaultValues();
         $currentUser = \Yii::$app->user->identity;
         $user = User::findOne($currentUser->id);
+        $profile = null;
         if (!is_null($user->profile)) {
             $profileId = $user->profile->id;
             $profile = Profile::findOne($profileId);
