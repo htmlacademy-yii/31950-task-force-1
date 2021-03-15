@@ -77,13 +77,14 @@ label.create__file {
 .enter-form {
   bottom: auto;
 }
-.enter-form__auth{
+
+.enter-form__auth {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.enter-form__auth .auth-clients{
+.enter-form__auth .auth-clients {
   margin-bottom: 0;
 }
 
@@ -184,6 +185,14 @@ form .has-error input {
   border-color: #FF116E;
 }
 
-.user__search-icon img, .card__review img{
+.user__search-icon img, .card__review img {
   object-fit: cover;
+}
+
+.pagination__item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }

@@ -8,6 +8,7 @@ use frontend\models\TaskReject;
 use frontend\models\TaskResponse;
 use frontend\models\UserTask;
 use Yii;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
@@ -45,8 +46,12 @@ class TasksController extends SecuredController
             $model->load(\Yii::$app->request->get());
         }
 
-        $tasks = $model->applyFilters($allTasks)->all();
-        return $this->render('index', compact('tasks', 'categories', 'model'));
+        $tasks = $model->applyFilters($allTasks);
+        $pages = new Pagination(['totalCount' => $tasks->count(), 'pageSize' => 5]);
+        $tasks = $tasks->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        return $this->render('index', compact('tasks', 'pages', 'categories', 'model'));
     }
 
     public function actionView($id)
