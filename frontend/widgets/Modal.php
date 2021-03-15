@@ -20,16 +20,16 @@ class Modal extends Widget
         $type = $this->type;
         $task = $this->task;
 
-        if ($type == "login") {
+        if ($type === "login") {
             return $this->render("modal/login", ['model' => new LoginForm()]);
         }
-        if ($type == "task-reject") {
+        if ($type === "task-reject") {
             return $this->render("modal/task-reject", ['model' => new TaskReject(), 'task' => $task]);
         }
-        if ($type == "task-cancel") {
+        if ($type === "task-cancel") {
             return $this->render("modal/task-cancel", ['model' => new TaskCancel(), 'task' => $task]);
         }
-        if ($type == "task-response") {
+        if ($type === "task-response") {
             return $this->render("modal/task-response", ['model' => new TaskResponse(), 'task' => $task]);
         }
         return false;
