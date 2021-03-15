@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "profile".
@@ -19,7 +19,7 @@ use Yii;
  * @property Message[] $messages
  * @property Opinion[] $opinions
  */
-class Profile extends \yii\db\ActiveRecord
+class Profile extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -74,7 +74,7 @@ class Profile extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['worker_id' => 'id']);
+        return $this->hasMany(Message::class, ['worker_id' => 'id']);
     }
 
     /**
@@ -84,7 +84,7 @@ class Profile extends \yii\db\ActiveRecord
      */
     public function getOpinions()
     {
-        return $this->hasMany(Opinion::className(), ['worker_id' => 'id']);
+        return $this->hasMany(Opinion::class, ['worker_id' => 'id']);
     }
 
     /**
@@ -94,6 +94,6 @@ class Profile extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id']);
+        return $this->hasOne(User::class, ['id' => 'id']);
     }
 }

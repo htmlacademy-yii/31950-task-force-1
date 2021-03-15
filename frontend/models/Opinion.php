@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "opinion".
@@ -18,7 +18,7 @@ use Yii;
  * @property User $owner
  * @property Profile $worker
  */
-class Opinion extends \yii\db\ActiveRecord
+class Opinion extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,8 +38,8 @@ class Opinion extends \yii\db\ActiveRecord
             [['date_add'], 'safe'],
             [['rate', 'owner_id', 'worker_id', 'task_id'], 'integer'],
             [['description'], 'string'],
-            [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
-            [['worker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::className(), 'targetAttribute' => ['worker_id' => 'id']],
+            [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['owner_id' => 'id']],
+            [['worker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::class, 'targetAttribute' => ['worker_id' => 'id']],
         ];
     }
 
@@ -66,7 +66,7 @@ class Opinion extends \yii\db\ActiveRecord
      */
     public function getOwner()
     {
-        return $this->hasOne(User::className(), ['id' => 'owner_id']);
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
     }
 
     /**
@@ -76,7 +76,7 @@ class Opinion extends \yii\db\ActiveRecord
      */
     public function getWorker()
     {
-        return $this->hasOne(Profile::className(), ['id' => 'worker_id']);
+        return $this->hasOne(Profile::class, ['id' => 'worker_id']);
     }
 
     /**
@@ -86,6 +86,6 @@ class Opinion extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(Task::class, ['id' => 'task_id']);
     }
 }

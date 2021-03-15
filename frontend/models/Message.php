@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "message".
@@ -18,7 +18,7 @@ use Yii;
  * @property Profile $worker
  * @property Task $task
  */
-class Message extends \yii\db\ActiveRecord
+class Message extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -59,7 +59,7 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getOwner()
     {
-        return $this->hasOne(User::className(), ['id' => 'owner_id']);
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
     }
 
     /**
@@ -69,6 +69,6 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getWorker()
     {
-        return $this->hasOne(Profile::className(), ['id' => 'worker_id']);
+        return $this->hasOne(Profile::class, ['id' => 'worker_id']);
     }
 }

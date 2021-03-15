@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_task".
@@ -14,7 +14,7 @@ use Yii;
  * @property Task $task
  * @property User $user
  */
-class UserTask extends \yii\db\ActiveRecord
+class UserTask extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -31,8 +31,8 @@ class UserTask extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'task_id'], 'integer'],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class UserTask extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasMany(Task::className(), ['id' => 'task_id']);
+        return $this->hasMany(Task::class, ['id' => 'task_id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class UserTask extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id']);
+        return $this->hasMany(User::class, ['id' => 'user_id']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task_category".
@@ -13,7 +14,7 @@ namespace frontend\models;
  * @property Category $category
  * @property Task $task
  */
-class TaskCategory extends \yii\db\ActiveRecord
+class TaskCategory extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,8 +39,8 @@ class TaskCategory extends \yii\db\ActiveRecord
         return [
             [['task_id', 'category_id'], 'required'],
             [['task_id', 'category_id'], 'integer'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 

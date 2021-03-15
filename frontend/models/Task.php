@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task".
@@ -20,7 +21,7 @@ namespace frontend\models;
  *
  * @property TaskCategory[] $taskCategories
  */
-class Task extends \yii\db\ActiveRecord
+class Task extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -73,7 +74,7 @@ class Task extends \yii\db\ActiveRecord
 
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->
         viaTable("task_category", ['task_id' => 'id']);
     }
 
@@ -84,7 +85,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getFiles()
     {
-        return $this->hasMany(TaskFile::className(), ['task_id' => 'id']);
+        return $this->hasMany(TaskFile::class, ['task_id' => 'id']);
     }
 
     /**
@@ -94,7 +95,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getOwner()
     {
-        return $this->hasOne(User::className(), ['id' => 'owner_id']);
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
     }
 
     /**
@@ -104,7 +105,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getResponse()
     {
-        return $this->hasMany(Response::className(), ['task_id' => 'id']);
+        return $this->hasMany(Response::class, ['task_id' => 'id']);
     }
 
     /**
@@ -114,7 +115,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(UserTask::className(), ['task_id' => 'id']);
+        return $this->hasOne(UserTask::class, ['task_id' => 'id']);
     }
 
     /**
@@ -124,7 +125,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['task_id' => 'id']);
+        return $this->hasMany(Message::class, ['task_id' => 'id']);
     }
 
 
