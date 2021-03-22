@@ -16,6 +16,17 @@ use \yii\db\ActiveRecord;
  */
 class Info extends ActiveRecord
 {
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Task::class, ['id' => 'task_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -56,15 +67,5 @@ class Info extends ActiveRecord
             'status' => 'Status',
             'user_id' => 'User ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Task::class, ['id' => 'task_id']);
     }
 }

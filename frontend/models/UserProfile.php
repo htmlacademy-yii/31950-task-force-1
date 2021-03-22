@@ -16,6 +16,27 @@ use \yii\db\ActiveRecord;
  */
 class UserProfile extends ActiveRecord
 {
+
+    /**
+     * Gets query for [[Profile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::class, ['id' => 'profile_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -46,25 +67,5 @@ class UserProfile extends ActiveRecord
             'user_id' => 'User ID',
             'profile_id' => 'Profile ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Profile]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProfile()
-    {
-        return $this->hasOne(Profile::class, ['id' => 'profile_id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

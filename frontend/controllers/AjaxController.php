@@ -8,6 +8,7 @@ use yii\web\Controller;
 
 class AjaxController extends Controller
 {
+    // Получает координаты с Api
     public function actionCoords($value)
     {
         $this->layout = false;

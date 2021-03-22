@@ -17,6 +17,26 @@ use \yii\db\ActiveRecord;
 class UserCategory extends ActiveRecord
 {
     /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -53,26 +73,6 @@ class UserCategory extends ActiveRecord
             'user_id' => 'User ID',
             'category_id' => 'Category ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasMany(Category::class, ['id' => 'category_id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasMany(User::class, ['id' => 'user_id']);
     }
 
     public function saveUserCategory($user, $category_id)

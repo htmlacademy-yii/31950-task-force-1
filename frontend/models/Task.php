@@ -24,49 +24,6 @@ use \yii\db\ActiveRecord;
 class Task extends ActiveRecord
 {
     /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'task';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'description'], 'required'],
-            [['description', 'address', 'status'], 'string'],
-            [['date_add', 'date_expire'], 'safe'],
-            [['price'], 'integer'],
-            [['latitude', 'longitude'], 'number'],
-            [['name'], 'string', 'max' => 48],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'date_add' => 'Date Add',
-            'date_expire' => 'Date Expire',
-            'price' => 'Price',
-            'address' => 'Address',
-            'latitude' => 'Latitude',
-            'longitude' => 'Longitude',
-            'status' => 'Status',
-            'owner_id' => 'Owner ID',
-        ];
-    }
-
-    /**
      * Gets query for [[Categories]].
      *
      * @return \yii\db\ActiveQuery
@@ -128,5 +85,47 @@ class Task extends ActiveRecord
         return $this->hasMany(Message::class, ['task_id' => 'id']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'task';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['name', 'description'], 'required'],
+            [['description', 'address', 'status'], 'string'],
+            [['date_add', 'date_expire'], 'safe'],
+            [['price'], 'integer'],
+            [['latitude', 'longitude'], 'number'],
+            [['name'], 'string', 'max' => 48],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
+            'date_add' => 'Date Add',
+            'date_expire' => 'Date Expire',
+            'price' => 'Price',
+            'address' => 'Address',
+            'latitude' => 'Latitude',
+            'longitude' => 'Longitude',
+            'status' => 'Status',
+            'owner_id' => 'Owner ID',
+        ];
+    }
 
 }

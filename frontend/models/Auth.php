@@ -17,6 +17,17 @@ use \yii\db\ActiveRecord;
  */
 class Auth extends ActiveRecord
 {
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -49,15 +60,5 @@ class Auth extends ActiveRecord
             'source' => 'Source',
             'source_id' => 'Source ID',
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

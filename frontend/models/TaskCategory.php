@@ -17,6 +17,26 @@ use \yii\db\ActiveRecord;
 class TaskCategory extends ActiveRecord
 {
     /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasMany(Task::class, ['id' => 'task_id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -54,26 +74,6 @@ class TaskCategory extends ActiveRecord
             'task_id' => 'Task ID',
             'category_id' => 'Category ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasMany(Category::class, ['id' => 'category_id']);
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasMany(Task::class, ['id' => 'task_id']);
     }
 
     public function saveTaskCategory($task, $category_id)

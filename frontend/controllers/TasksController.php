@@ -89,6 +89,7 @@ class TasksController extends SecuredController
         return $this->render('create', compact("model", 'categories', 'errors'));
     }
 
+    // Отклоняет задачу
     public function actionReject($id)
     {
         $model = new TaskReject();
@@ -100,6 +101,7 @@ class TasksController extends SecuredController
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+    // Завершает задачу
     public function actionCancel($id)
     {
         $model = new TaskCancel();
@@ -112,6 +114,7 @@ class TasksController extends SecuredController
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+    //Отклик на задачу
     public function actionResponse($id)
     {
         $model = new TaskResponse();
@@ -131,6 +134,7 @@ class TasksController extends SecuredController
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+    // Отклоняет завку
     public function actionResponseReject($id)
     {
         $response = Response::findOne($id);
@@ -139,6 +143,7 @@ class TasksController extends SecuredController
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+    // Принимает заявку
     public function actionResponseApply($taskId, $responseId, $userId)
     {
         $response = Response::findOne($responseId);

@@ -70,16 +70,4 @@ class UserTasksController extends SecuredController
         $tasks = Task::find()->where(['status' => 'in work'])->andWhere(['<', 'date_expire', time()])->andWhere(['owner_id' => $user->id])->orderBy('date_add DESC')->all();
         return $this->render('past', compact('tasks', 'user'));
     }
-
-    public function customMultiSort($array, $field)
-    {
-        $sortArr = array();
-        foreach ($array as $key => $val) {
-            $sortArr[$key] = $val[$field];
-        }
-
-        array_multisort($sortArr, $array);
-
-        return $array;
-    }
 }

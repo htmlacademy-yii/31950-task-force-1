@@ -31,51 +31,6 @@ use \yii\db\ActiveRecord;
 class User extends ActiveRecord
 {
     /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'user';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['username', 'email', 'password_hash', 'city_id'], 'required'],
-            [['date_last'], 'safe'],
-            [['username'], 'string', 'max' => 48],
-            [['email'], 'string', 'max' => 128],
-            [['password_hash'], 'string', 'max' => 64],
-            [['city_id'], 'integer'],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'username' => 'Name',
-            'email' => 'Email',
-            'password_hash' => 'Password',
-            'avatar' => 'Avatar',
-            'date_last' => 'Date Last',
-            'city_id' => 'City ID',
-            'notification_to_new_message' => 'Notification To New Message',
-            'notification_to_new_action' => 'Notification To New Action',
-            'notification_to_new_review' => 'Notification To New Review',
-            'show_my_contacts' => 'Show My Contacts',
-            'show_my_account' => 'Show My Account',
-        ];
-    }
-
-    /**
      * Gets query for [[Messages]].
      *
      * @return \yii\db\ActiveQuery
@@ -180,4 +135,48 @@ class User extends ActiveRecord
         return $this->hasMany(UserFile::class, ['user_id' => 'id']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'email', 'password_hash', 'city_id'], 'required'],
+            [['date_last'], 'safe'],
+            [['username'], 'string', 'max' => 48],
+            [['email'], 'string', 'max' => 128],
+            [['password_hash'], 'string', 'max' => 64],
+            [['city_id'], 'integer'],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Name',
+            'email' => 'Email',
+            'password_hash' => 'Password',
+            'avatar' => 'Avatar',
+            'date_last' => 'Date Last',
+            'city_id' => 'City ID',
+            'notification_to_new_message' => 'Notification To New Message',
+            'notification_to_new_action' => 'Notification To New Action',
+            'notification_to_new_review' => 'Notification To New Review',
+            'show_my_contacts' => 'Show My Contacts',
+            'show_my_account' => 'Show My Account',
+        ];
+    }
 }

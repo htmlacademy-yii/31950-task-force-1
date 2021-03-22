@@ -21,6 +21,36 @@ use \yii\db\ActiveRecord;
 class Opinion extends ActiveRecord
 {
     /**
+     * Gets query for [[Owner]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOwner()
+    {
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
+    }
+
+    /**
+     * Gets query for [[Worker]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWorker()
+    {
+        return $this->hasOne(Profile::class, ['id' => 'worker_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Task::class, ['id' => 'task_id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -57,35 +87,5 @@ class Opinion extends ActiveRecord
             'worker_id' => 'Worker ID',
             'task_id' => 'Task ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Owner]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOwner()
-    {
-        return $this->hasOne(User::class, ['id' => 'owner_id']);
-    }
-
-    /**
-     * Gets query for [[Worker]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWorker()
-    {
-        return $this->hasOne(Profile::class, ['id' => 'worker_id']);
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Task::class, ['id' => 'task_id']);
     }
 }

@@ -17,6 +17,16 @@ use \yii\db\ActiveRecord;
 class City extends ActiveRecord
 {
     /**
+     * Gets query for [[Users]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['city_id' => 'id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -47,15 +57,5 @@ class City extends ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
         ];
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(User::class, ['city_id' => 'id']);
     }
 }

@@ -21,38 +21,6 @@ use \yii\db\ActiveRecord;
 class Message extends ActiveRecord
 {
     /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'message';
-    }
-
-    public function scenarios()
-    {
-        return [
-            'default' => ['published_at', 'message', 'worker_id', 'owner_id', 'task_id']
-        ];
-    }
-
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'published_at' => 'Published At',
-            'message' => 'message',
-            'worker_id' => 'Worker ID',
-            'owner_id' => 'Owner ID',
-            'task_id' => 'Task ID',
-        ];
-    }
-
-    /**
      * Gets query for [[Owner]].
      *
      * @return \yii\db\ActiveQuery
@@ -70,5 +38,35 @@ class Message extends ActiveRecord
     public function getWorker()
     {
         return $this->hasOne(Profile::class, ['id' => 'worker_id']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'message';
+    }
+
+    public function scenarios()
+    {
+        return [
+            'default' => ['published_at', 'message', 'worker_id', 'owner_id', 'task_id']
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'published_at' => 'Published At',
+            'message' => 'message',
+            'worker_id' => 'Worker ID',
+            'owner_id' => 'Owner ID',
+            'task_id' => 'Task ID',
+        ];
     }
 }

@@ -17,6 +17,26 @@ use \yii\db\ActiveRecord;
 class UserTask extends ActiveRecord
 {
     /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasMany(Task::class, ['id' => 'task_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -46,25 +66,5 @@ class UserTask extends ActiveRecord
             'user_id' => 'User ID',
             'task_id' => 'Task ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasMany(Task::class, ['id' => 'task_id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasMany(User::class, ['id' => 'user_id']);
     }
 }

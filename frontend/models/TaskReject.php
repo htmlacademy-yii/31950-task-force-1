@@ -41,6 +41,5 @@ class TaskReject extends Model
         $info->task_id = $id;
         $info->user_id = $task->owner_id;
         $info->save();
-
     }
 }

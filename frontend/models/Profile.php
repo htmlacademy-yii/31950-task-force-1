@@ -22,6 +22,36 @@ use \yii\db\ActiveRecord;
 class Profile extends ActiveRecord
 {
     /**
+     * Gets query for [[Messages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Message::class, ['worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Opinions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOpinions()
+    {
+        return $this->hasMany(Opinion::class, ['worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -67,33 +97,4 @@ class Profile extends ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Messages]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMessages()
-    {
-        return $this->hasMany(Message::class, ['worker_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Opinions]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOpinions()
-    {
-        return $this->hasMany(Opinion::class, ['worker_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'id']);
-    }
 }
