@@ -6,7 +6,9 @@ use frontend\models\Info;
 use frontend\models\TaskCancel;
 use frontend\models\TaskReject;
 use frontend\models\TaskResponse;
-use frontend\models\UserTask;
+use htmlacademy\service\UpdateInfo;
+use htmlacademy\service\UpdateTask;
+use htmlacademy\service\UpdateUserTask;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -150,21 +152,11 @@ class TasksController extends SecuredController
         $response->status = 'apply';
         $response->save();
 
-        $userTask = new UserTask();
-        $userTask->user_id = $userId;
-        $userTask->task_id = $taskId;
-        $userTask->save();
+        UpdateUserTask::index($userId,$taskId);
 
-        $task = Task::findOne($taskId);
-        $task->status = 'in work';
-        $task->save();
+        UpdateTask::index($taskId);
 
-        $info = new Info();
-        $info->category = "executor";
-        $info->message = "Старт задания";
-        $info->task_id = $taskId;
-        $info->user_id = $userId;
-        $info->save();
+        UpdateInfo::index($taskId, "executor", "Старт задания", $userId);
 
         return $this->redirect(Yii::$app->request->referrer);
     }

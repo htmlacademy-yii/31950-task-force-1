@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-
 use frontend\models\Category;
 use frontend\models\UserModel;
 use frontend\models\User;

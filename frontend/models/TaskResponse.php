@@ -3,6 +3,7 @@
 
 namespace frontend\models;
 
+use htmlacademy\service\UpdateResponse;
 use yii\base\Model;
 
 class TaskResponse extends Model
@@ -36,13 +37,6 @@ class TaskResponse extends Model
 
     public function saveForm($id)
     {
-        $response = new Response();
-        $response->price = $this->price;
-        $response->description = $this->text;
-        $response->date_add = time();
-        $response->status = 'new';
-        $response->task_id = $id;
-        $response->user_id = \Yii::$app->user->identity->id;
-        $response->save();
+        UpdateResponse::index($id, $this->price, $this->text);
     }
 }
