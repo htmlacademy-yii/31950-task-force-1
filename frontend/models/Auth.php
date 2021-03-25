@@ -2,8 +2,8 @@
 
 namespace frontend\models;
 
-use Yii;
 use common\models\User;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "auth".
@@ -15,8 +15,19 @@ use common\models\User;
  *
  * @property User $user
  */
-class Auth extends \yii\db\ActiveRecord
+class Auth extends ActiveRecord
 {
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -34,7 +45,7 @@ class Auth extends \yii\db\ActiveRecord
             [['user_id', 'source', 'source_id'], 'required'],
             [['user_id'], 'integer'],
             [['source', 'source_id'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -49,15 +60,5 @@ class Auth extends \yii\db\ActiveRecord
             'source' => 'Source',
             'source_id' => 'Source ID',
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

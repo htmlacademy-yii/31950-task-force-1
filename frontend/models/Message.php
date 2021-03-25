@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "message".
@@ -18,8 +18,28 @@ use Yii;
  * @property Profile $worker
  * @property Task $task
  */
-class Message extends \yii\db\ActiveRecord
+class Message extends ActiveRecord
 {
+    /**
+     * Gets query for [[Owner]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOwner()
+    {
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
+    }
+
+    /**
+     * Gets query for [[Worker]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWorker()
+    {
+        return $this->hasOne(Profile::class, ['id' => 'worker_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +55,6 @@ class Message extends \yii\db\ActiveRecord
         ];
     }
 
-
-
     /**
      * {@inheritdoc}
      */
@@ -50,25 +68,5 @@ class Message extends \yii\db\ActiveRecord
             'owner_id' => 'Owner ID',
             'task_id' => 'Task ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Owner]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOwner()
-    {
-        return $this->hasOne(User::className(), ['id' => 'owner_id']);
-    }
-
-    /**
-     * Gets query for [[Worker]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWorker()
-    {
-        return $this->hasOne(Profile::className(), ['id' => 'worker_id']);
     }
 }

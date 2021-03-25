@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "profile".
@@ -19,8 +19,38 @@ use Yii;
  * @property Message[] $messages
  * @property Opinion[] $opinions
  */
-class Profile extends \yii\db\ActiveRecord
+class Profile extends ActiveRecord
 {
+    /**
+     * Gets query for [[Messages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Message::class, ['worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Opinions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOpinions()
+    {
+        return $this->hasMany(Opinion::class, ['worker_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -67,33 +97,4 @@ class Profile extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Messages]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMessages()
-    {
-        return $this->hasMany(Message::className(), ['worker_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Opinions]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOpinions()
-    {
-        return $this->hasMany(Opinion::className(), ['worker_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'id']);
-    }
 }

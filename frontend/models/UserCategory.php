@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_category".
@@ -14,8 +14,28 @@ use Yii;
  * @property Category $category
  * @property User $user
  */
-class UserCategory extends \yii\db\ActiveRecord
+class UserCategory extends ActiveRecord
 {
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -38,8 +58,8 @@ class UserCategory extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'category_id'], 'integer'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -53,26 +73,6 @@ class UserCategory extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'category_id' => 'Category ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasMany(Category::className(), ['id' => 'category_id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasMany(User::className(), ['id' => 'user_id']);
     }
 
     public function saveUserCategory($user, $category_id)

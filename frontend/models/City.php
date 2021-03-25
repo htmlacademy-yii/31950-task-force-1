@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "city".
@@ -14,8 +14,18 @@ use Yii;
  *
  * @property Profile[] $profiles
  */
-class City extends \yii\db\ActiveRecord
+class City extends ActiveRecord
 {
+    /**
+     * Gets query for [[Users]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['city_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -47,15 +57,5 @@ class City extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
         ];
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(User::className(), ['city_id' => 'id']);
     }
 }

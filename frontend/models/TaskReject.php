@@ -3,6 +3,8 @@
 
 namespace frontend\models;
 
+use htmlacademy\service\UpdateInfo;
+use htmlacademy\service\UpdateUser;
 use yii\base\Model;
 
 class TaskReject extends Model
@@ -27,20 +29,10 @@ class TaskReject extends Model
         $task->status = $this->status;
         $task->save();
 
-        $user_id = \Yii::$app->user->identity->id;
-        $user = User::findOne($user_id);
-        $profile_id = $user->profile->id;
-        $profile = Profile::findOne($profile_id);
-        $profile->popular = $profile->popular - 1;
+        $updateUser = new UpdateUser();
+        $updateUser->index();
 
-        $profile->save();
-
-        $info = new Info();
-        $info->category = "close";
-        $info->message = "Отказ от задания исполнителем";
-        $info->task_id = $id;
-        $info->user_id = $task->owner_id;
-        $info->save();
-
+        $updateInfo = new UpdateInfo();
+        $updateInfo->index($id, "close", "Отказ от задания исполнителем", $task->owner_id);
     }
 }
