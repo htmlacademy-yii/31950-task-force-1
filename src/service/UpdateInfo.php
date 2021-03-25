@@ -8,7 +8,7 @@ use frontend\models\Info;
 
 class UpdateInfo
 {
-    public static function index($id, $category, $message, $user_id)
+    public function index($id, $category, $message, $user_id)
     {
         $info = new Info();
         $info->category = $category;

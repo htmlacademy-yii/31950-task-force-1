@@ -152,11 +152,14 @@ class TasksController extends SecuredController
         $response->status = 'apply';
         $response->save();
 
-        UpdateUserTask::index($userId,$taskId);
+        $updateUserTask = new UpdateUserTask();
+        $updateUserTask->index($userId, $taskId);
 
-        UpdateTask::index($taskId);
+        $updateTask = new UpdateTask();
+        $updateTask->index($taskId);
 
-        UpdateInfo::index($taskId, "executor", "Старт задания", $userId);
+        $updateInfo = new UpdateInfo();
+        $updateInfo->index($taskId, "executor", "Старт задания", $userId);
 
         return $this->redirect(Yii::$app->request->referrer);
     }

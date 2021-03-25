@@ -31,8 +31,12 @@ class TaskCancel extends Model
         $task->status = $this->status;
         $task->save();
         if ($this->rate || $this->text) {
-            $opinion = UpdateOpinion::index($id, $this->rate, $this->text);
-            UpdateInfo::index($id, "close", "Завершение задания", $opinion->worker_id);
+
+            $UpdateOpinion = new UpdateOpinion();
+            $opinion = $UpdateOpinion->index($id, $this->rate, $this->text);
+
+            $updateInfo = new UpdateInfo();
+            $updateInfo->index($id, "close", "Завершение задания", $opinion->worker_id);
         }
     }
 }

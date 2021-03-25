@@ -37,6 +37,7 @@ class TaskResponse extends Model
 
     public function saveForm($id)
     {
-        UpdateResponse::index($id, $this->price, $this->text);
+        $updateResponse = new UpdateResponse();
+        $updateResponse->index($id, $this->price, $this->text);
     }
 }

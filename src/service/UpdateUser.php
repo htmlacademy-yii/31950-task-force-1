@@ -8,7 +8,8 @@ use frontend\models\User;
 
 class UpdateUser
 {
-    public static function index(){
+    public function index()
+    {
         $user_id = \Yii::$app->user->identity->id;
 
         $user = User::findOne($user_id);

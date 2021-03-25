@@ -29,8 +29,10 @@ class TaskReject extends Model
         $task->status = $this->status;
         $task->save();
 
-        UpdateUser::index();
+        $updateUser = new UpdateUser();
+        $updateUser->index();
 
-        UpdateInfo::index($id, "close","Отказ от задания исполнителем",$task->owner_id);
+        $updateInfo = new UpdateInfo();
+        $updateInfo->index($id, "close", "Отказ от задания исполнителем", $task->owner_id);
     }
 }

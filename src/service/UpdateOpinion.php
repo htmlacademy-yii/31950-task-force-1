@@ -9,7 +9,7 @@ use frontend\models\UserTask;
 
 class UpdateOpinion
 {
-    public static function index($id, $rate, $text)
+    public function index($id, $rate, $text)
     {
         $opinion = new Opinion();
         $opinion->date_add = time();

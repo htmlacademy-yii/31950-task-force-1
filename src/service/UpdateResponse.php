@@ -7,7 +7,7 @@ use frontend\models\Response;
 
 class UpdateResponse
 {
-    public static function index($id, $price, $text)
+    public function index($id, $price, $text)
     {
         $response = new Response();
         $response->price = $price;

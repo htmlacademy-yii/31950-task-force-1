@@ -7,7 +7,8 @@ use frontend\models\UserTask;
 
 class UpdateUserTask
 {
-    public static function index($userId,$taskId){
+    public function index($userId, $taskId)
+    {
         $userTask = new UserTask();
         $userTask->user_id = $userId;
         $userTask->task_id = $taskId;

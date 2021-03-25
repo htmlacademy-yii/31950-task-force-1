@@ -52,7 +52,7 @@ class UsersController extends SecuredController
     {
         $categories = Category::find()->indexBy('id')->all();
         $allUsers = User::find()->
-        select(['user.*','COUNT(user_task.user_id) AS cnt'])->
+        select(['user.*', 'COUNT(user_task.user_id) AS cnt'])->
         leftJoin('user_task', 'user_task.user_id = user.id')->
         leftJoin('user_profile', 'user_profile.user_id = user.id')->
         andWhere(['not', ['user_profile.user_id' => null]])->
