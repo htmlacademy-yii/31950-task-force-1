@@ -2,8 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
-
+use \yii\db\ActiveRecord;
 /**
  * This is the model class for table "category".
  *
@@ -13,8 +12,18 @@ use Yii;
  *
  * @property TaskCategory[] $taskCategories
  */
-class Category extends \yii\db\ActiveRecord
+class Category extends ActiveRecord
 {
+    /**
+     * Gets query for [[TaskCategories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskCategories()
+    {
+        return $this->hasMany(TaskCategory::class, ['category_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -44,15 +53,5 @@ class Category extends \yii\db\ActiveRecord
             'name' => 'Name',
             'slug' => 'Slug',
         ];
-    }
-
-    /**
-     * Gets query for [[TaskCategories]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskCategories()
-    {
-        return $this->hasMany(TaskCategory::className(), ['category_id' => 'id']);
     }
 }

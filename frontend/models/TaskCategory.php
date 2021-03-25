@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task_category".
@@ -13,8 +14,28 @@ namespace frontend\models;
  * @property Category $category
  * @property Task $task
  */
-class TaskCategory extends \yii\db\ActiveRecord
+class TaskCategory extends ActiveRecord
 {
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasMany(Task::class, ['id' => 'task_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -38,8 +59,8 @@ class TaskCategory extends \yii\db\ActiveRecord
         return [
             [['task_id', 'category_id'], 'required'],
             [['task_id', 'category_id'], 'integer'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -53,26 +74,6 @@ class TaskCategory extends \yii\db\ActiveRecord
             'task_id' => 'Task ID',
             'category_id' => 'Category ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasMany(Category::class, ['id' => 'category_id']);
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasMany(Task::class, ['id' => 'task_id']);
     }
 
     public function saveTaskCategory($task, $category_id)

@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "info".
@@ -14,8 +14,19 @@ use Yii;
  * @property int $user_id
  * @property boolean $status
  */
-class Info extends \yii\db\ActiveRecord
+class Info extends ActiveRecord
 {
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Task::class, ['id' => 'task_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -56,15 +67,5 @@ class Info extends \yii\db\ActiveRecord
             'status' => 'Status',
             'user_id' => 'User ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
     }
 }

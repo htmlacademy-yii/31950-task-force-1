@@ -3,13 +3,14 @@
 use htmlacademy\helpers\SiteHelper;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 
 /** @var $tasks */
 /** @var $categories */
 /** @var $model */
+/** @var $pages */
 
 $this->title = 'TaskForce | Список задач';
-
 ?>
 
 <section class="new-task">
@@ -41,14 +42,18 @@ $this->title = 'TaskForce | Список задач';
         <? endforeach; ?>
     </div>
     <div class="new-task__pagination">
-        <ul class="new-task__pagination-list">
-            <li class="pagination__item"><a href="#"></a></li>
-            <li class="pagination__item pagination__item--current">
-                <a>1</a></li>
-            <li class="pagination__item"><a href="#">2</a></li>
-            <li class="pagination__item"><a href="#">3</a></li>
-            <li class="pagination__item"><a href="#"></a></li>
-        </ul>
+        <?= LinkPager::widget([
+            'pagination' => $pages,
+            'activePageCssClass' => 'pagination__item--current',
+            'pageCssClass' => 'pagination__item',
+            'prevPageCssClass' => 'pagination__item',
+            'nextPageCssClass' => 'pagination__item',
+            'prevPageLabel' => '',
+            'nextPageLabel' => '',
+            'options' => [
+                'class' => 'new-task__pagination-list',
+            ]
+        ]); ?>
     </div>
 </section>
 <section class="search-task">

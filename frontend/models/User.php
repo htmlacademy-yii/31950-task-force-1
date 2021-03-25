@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user".
@@ -27,53 +28,8 @@ use Yii;
  * @property UserProfile[] $userProfiles
  * @property UserTask[] $userTasks
  */
-class User extends \yii\db\ActiveRecord
+class User extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'user';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['username', 'email', 'password_hash', 'city_id'], 'required'],
-            [['date_last'], 'safe'],
-            [['username'], 'string', 'max' => 48],
-            [['email'], 'string', 'max' => 128],
-            [['password_hash'], 'string', 'max' => 64],
-            [['city_id'], 'integer'],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'username' => 'Name',
-            'email' => 'Email',
-            'password_hash' => 'Password',
-            'avatar' => 'Avatar',
-            'date_last' => 'Date Last',
-            'city_id' => 'City ID',
-            'notification_to_new_message' => 'Notification To New Message',
-            'notification_to_new_action' => 'Notification To New Action',
-            'notification_to_new_review' => 'Notification To New Review',
-            'show_my_contacts' => 'Show My Contacts',
-            'show_my_account' => 'Show My Account',
-        ];
-    }
-
     /**
      * Gets query for [[Messages]].
      *
@@ -81,7 +37,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['owner_id' => 'id']);
+        return $this->hasMany(Message::class, ['owner_id' => 'id']);
     }
 
     /**
@@ -91,7 +47,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getOpinions()
     {
-        return $this->hasMany(Opinion::className(), ['worker_id' => 'id']);
+        return $this->hasMany(Opinion::class, ['worker_id' => 'id']);
     }
 
     /**
@@ -101,7 +57,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->
         viaTable("user_category", ['user_id' => 'id']);
     }
 
@@ -112,7 +68,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::className(), ['id' => 'profile_id'])->
+        return $this->hasOne(Profile::class, ['id' => 'profile_id'])->
         viaTable("user_profile", ['user_id' => 'id']);
     }
 
@@ -123,7 +79,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Task::className(), ['id' => 'task_id'])->
+        return $this->hasMany(Task::class, ['id' => 'task_id'])->
         viaTable('user_task', ['user_id' => 'id']);
     }
 
@@ -134,7 +90,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getUserTasks()
     {
-        return $this->hasMany(Task::className(), ['owner_id' => 'id']);
+        return $this->hasMany(Task::class, ['owner_id' => 'id']);
     }
 
     /**
@@ -166,7 +122,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(City::className(), ['id' => 'city_id']);
+        return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 
     /**
@@ -176,7 +132,51 @@ class User extends \yii\db\ActiveRecord
      */
     public function getFiles()
     {
-        return $this->hasMany(UserFile::className(), ['user_id' => 'id']);
+        return $this->hasMany(UserFile::class, ['user_id' => 'id']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'email', 'password_hash', 'city_id'], 'required'],
+            [['date_last'], 'safe'],
+            [['username'], 'string', 'max' => 48],
+            [['email'], 'string', 'max' => 128],
+            [['password_hash'], 'string', 'max' => 64],
+            [['city_id'], 'integer'],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Name',
+            'email' => 'Email',
+            'password_hash' => 'Password',
+            'avatar' => 'Avatar',
+            'date_last' => 'Date Last',
+            'city_id' => 'City ID',
+            'notification_to_new_message' => 'Notification To New Message',
+            'notification_to_new_action' => 'Notification To New Action',
+            'notification_to_new_review' => 'Notification To New Review',
+            'show_my_contacts' => 'Show My Contacts',
+            'show_my_account' => 'Show My Account',
+        ];
+    }
 }
