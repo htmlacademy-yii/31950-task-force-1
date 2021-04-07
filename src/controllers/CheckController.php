@@ -42,7 +42,7 @@ class CheckController
     {
         $result = false;
         if ($this->task->response && $this->user->id == $this->task->owner->id) {
-            if ($response['status'] != 'reject' && $this->task->status != 'in work' && $this->task->status != 'complete') {
+            if ($response['status'] !== 'reject' && $this->task->status !== 'in work' && $this->task->status !== 'complete') {
                 $result = true;
             }
         }
