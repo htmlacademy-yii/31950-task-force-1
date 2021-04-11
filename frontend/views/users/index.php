@@ -1,13 +1,14 @@
 <?
 
-use htmlacademy\helpers\SiteHelper;
-use frontend\widgets\Rate;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use frontend\widgets\UsersPagination;
+use yii\widgets\LinkPager;
 
-/** @var $users */
 /** @var $categories */
 /** @var $model */
+/** @var $dataProvider */
+/** @var $pages */
 
 $this->title = 'TaskForce | Список исполнителей';
 
@@ -27,42 +28,25 @@ $this->title = 'TaskForce | Список исполнителей';
             </li>
         </ul>
     </div>
-    <? foreach ($users as $user): ?>
-        <?
-        $tasksCount = count($user->tasks);
-        $opinionsCount = count($user->opinions);
+    <?=
+    UsersPagination::widget(['dataProvider' => $dataProvider])
+    ?>
+    <div class="block__pagination">
+        <?=
+        LinkPager::widget([
+            'pagination' => $pages,
+            'activePageCssClass' => 'pagination__item--current',
+            'pageCssClass' => 'pagination__item',
+            'prevPageCssClass' => 'pagination__item',
+            'nextPageCssClass' => 'pagination__item',
+            'prevPageLabel' => '',
+            'nextPageLabel' => '',
+            'options' => [
+                'class' => 'new-task__pagination-list',
+            ]
+        ]);
         ?>
-        <div class="content-view__feedback-card user__search-wrapper">
-            <div class="feedback-card__top">
-                <div class="user__search-icon">
-                    <a href="<?= Url::to(["/users/" . $user['id']]) ?>">
-                        <img src="<?= SiteHelper::getUserAvatar($user->avatar) ?>" width="65"
-                             height="65" alt="">
-                    </a>
-                    <span><?= $tasksCount ?> <?= SiteHelper::plural($tasksCount, ['задание', 'задания', 'заданий']) ?></span>
-                    <span><?= $opinionsCount ?> <?= SiteHelper::plural($opinionsCount, ['отзыв', 'отзыва', 'отзывов']) ?></span>
-                </div>
-                <div class="feedback-card__top--name user__search-card">
-                    <p class="link-name"><a href="<?= Url::to(["/users/" . $user['id']]) ?>"
-                                            class="link-regular"><?= $user['username'] ?></a></p>
-                    <?= $user->rate ? Rate::widget(['rate' => $user->rate, 'option' => 'stars-and-rate']) : "" ?>
-                    <p class="user__search-content">
-                        <?= $user->profile ? $user->profile->about : "" ?>
-                    </p>
-                </div>
-                <span
-                    class="new-task__time">Был на сайте <?= Yii::$app->formatter->asRelativeTime($user['date_last']) ?></span>
-            </div>
-            <? if (count($user->categories)): ?>
-                <div class="link-specialization user__search-link--bottom">
-                    <? foreach ($user->categories as $category) : ?>
-                        <a href="<?= Url::to(["/category/" . $category['slug']]) ?>"
-                           class="link-regular"><?= $category['name'] ?></a>
-                    <? endforeach; ?>
-                </div>
-            <? endif; ?>
-        </div>
-    <? endforeach; ?>
+    </div>
 </section>
 <section class="search-task">
     <div class="search-task__wrapper">

@@ -10,6 +10,7 @@ use htmlacademy\service\UpdateInfo;
 use htmlacademy\service\UpdateTask;
 use htmlacademy\service\UpdateUserTask;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
@@ -49,11 +50,14 @@ class TasksController extends SecuredController
         }
 
         $tasks = $model->applyFilters($allTasks);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $tasks,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
+        ]);
         $pages = new Pagination(['totalCount' => $tasks->count(), 'pageSize' => 5]);
-        $tasks = $tasks->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
-        return $this->render('index', compact('tasks', 'pages', 'categories', 'model'));
+        return $this->render('index', compact('dataProvider', 'pages', 'categories', 'model'));
     }
 
     public function actionView($id)

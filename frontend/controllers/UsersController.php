@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
 use frontend\models\Category;
 use frontend\models\UserModel;
@@ -24,9 +26,15 @@ class UsersController extends SecuredController
         if (\Yii::$app->request->get('UserModel', false) !== false) {
             $model->load(\Yii::$app->request->get());
         }
-
-        $users = $model->applyFilters($allUsers)->all();
-        return $this->render('index', compact('users', 'categories', 'model'));
+        $users = $model->applyFilters($allUsers);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $users,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
+        ]);
+        $pages = new Pagination(['totalCount' => $users->count(), 'pageSize' => 5]);
+        return $this->render('index', compact('dataProvider', 'pages', 'categories', 'model'));
     }
 
     public function actionPopular()
@@ -43,9 +51,15 @@ class UsersController extends SecuredController
             $model->load(\Yii::$app->request->get());
         }
 
-        $users = $model->applyFilters($allUsers)->all();
-
-        return $this->render('index', compact('users', 'categories', 'model'));
+        $users = $model->applyFilters($allUsers);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $users,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
+        ]);
+        $pages = new Pagination(['totalCount' => $users->count(), 'pageSize' => 5]);
+        return $this->render('index', compact('dataProvider', 'pages', 'categories', 'model'));
     }
 
     public function actionNumber()
@@ -65,9 +79,15 @@ class UsersController extends SecuredController
             $model->load(\Yii::$app->request->get());
         }
 
-        $users = $model->applyFilters($allUsers)->all();
-
-        return $this->render('index', compact('users', 'categories', 'model'));
+        $users = $model->applyFilters($allUsers);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $users,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
+        ]);
+        $pages = new Pagination(['totalCount' => $users->count(), 'pageSize' => 5]);
+        return $this->render('index', compact('dataProvider', 'pages', 'categories', 'model'));
     }
 
     public function actionView($id)

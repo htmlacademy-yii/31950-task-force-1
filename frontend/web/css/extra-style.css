@@ -196,3 +196,11 @@ form .has-error input {
   width: 100%;
   height: 100%;
 }
+
+.block__pagination {
+  padding-left: 20px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #c8c5c5;
+}
